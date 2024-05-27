@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard | ' . env('APP_NAME'))
+@section('title', 'Dashboard')
 
 @section('styles')
 @endsection

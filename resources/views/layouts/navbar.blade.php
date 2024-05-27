@@ -2,8 +2,8 @@
 <nav class="navbar navbar-expand-lg sticky-navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
-            <img src="{{ asset('/images/logo/logo-light.png') }}" class="logo-light" alt="logo">
-            <img src="{{ asset('/images/logo/logo-dark.png') }}" class="logo-dark" alt="logo">
+            <img src="{{ asset('/storage/logo_header.png') }}" class="logo-light" alt="logo" height="70px">
+            <img src="{{ asset('/storage/logo_header.png') }}" class="logo-dark" alt="logo" height="70px">
         </a>
         <button class="navbar-toggler" type="button">
             <span class="menu-lines"><span></span></span>

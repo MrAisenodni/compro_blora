@@ -3648,7 +3648,8 @@ input[type=radio] {
 }
 .footer .footer-secondary {
   position: relative;
-  padding: 46px 0;
+  padding: 8px 0;
+  /* padding: 46px 0; */
   background-color: #ffffff;
 }
 .footer .footer-secondary:after {
@@ -3780,7 +3781,8 @@ input[type=radio] {
     padding-bottom: 30px;
   }
   .footer .footer-secondary {
-    padding: 20px 0;
+    padding: 8px 0;
+    /* padding: 20px 0; */
   }
   .footer .footer-secondary:after {
     left: 20px;
