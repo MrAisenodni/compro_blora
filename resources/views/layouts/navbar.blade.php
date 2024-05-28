@@ -30,21 +30,21 @@
             var id = {{ $menu->id }}
             var conid = document.getElementById('menu_{{ $menu->parent_id }}');
 
-            @if ($menu->is_parent == 1 && $menu->parent_id == 0)
+            @if ($menu->is_parent == 1 && $menu->parent_id == 0 && $menu->is_shown == 1)
                 container.innerHTML += `<li class="nav__item has-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav__item-link">{{ $menu->title }}</a>
                         <ul id="menu_{{ $menu->id }}" class="dropdown-menu">
                         </ul>
                     </li>`;
-            @elseif ($menu->is_parent == 0 && $menu->parent_id == 0)
+            @elseif ($menu->is_parent == 0 && $menu->parent_id == 0 && $menu->is_shown == 1)
                 container.innerHTML += `<li class="nav__item"><a href="{{ $menu->url }}" class="nav__item-link @if ($c_menu == $menu->url) active @endif">{{ $menu->title }}</a></li>`;
-            @elseif ($menu->is_parent == 1 && $menu->parent_id <> 0)
+            @elseif ($menu->is_parent == 1 && $menu->parent_id <> 0 && $menu->is_shown == 1)
                 container.innerHTML += `<li class="nav__item has-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav__item-link">{{ $menu->title }}</a>
                         <ul id="menu_{{ $menu->id }}" class="dropdown-menu">
                         </ul>
                     </li>`;
-            @elseif ($menu->is_parent == 0 && $menu->parent_id <> 0)
+            @elseif ($menu->is_parent == 0 && $menu->parent_id <> 0 && $menu->is_shown == 1)
                 container.innerHTML += `<li class="nav__item"><a href="{{ $menu->url }}" class="nav__item-link @if ($c_menu == $menu->url) active @endif">{{ $menu->title }}</a></li>`;
             @endif
         @endforeach

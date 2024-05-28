@@ -15,3 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/', DashboardController::class);
+
+/*
+|||||||||||||||||||||||||||||||||||
+|||                             |||
+|||         ADMIN ROUTES        |||
+|||                             |||
+|||||||||||||||||||||||||||||||||||
+*/

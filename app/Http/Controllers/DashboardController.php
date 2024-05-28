@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DashboardService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __construct()
+    public function __construct(DashboardService $dashboardService)
     {
-        $this->url = '';
+        $this->dashboardService     = $dashboardService;
     }
     
     public function index()
     {
-        $data = [
-            'c_menu'       => $this->url,
-        ];
+        $data = $this->dashboardService->index();
+        // dd($data['templates'][0]->content);
 
         return view('index', $data);
     }

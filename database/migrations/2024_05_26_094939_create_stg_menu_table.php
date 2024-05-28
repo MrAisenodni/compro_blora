@@ -19,6 +19,8 @@ class CreateStgMenuTable extends Migration
             $table->string('url')->nullable();
             $table->string('icon', 50)->nullable();
             $table->boolean('is_parent')->default(0);
+            $table->boolean('is_login')->default(0);
+            $table->boolean('is_shown')->default(1);
             $table->unsignedInteger('parent_id')->nullable();
             $table->integer('order_no')->nullable();
 

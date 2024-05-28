@@ -16,7 +16,7 @@ class CreateMstTemplateTable extends Migration
         Schema::create('mst_template', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->longText('template')->nullable();
+            $table->longText('content')->nullable();
 
             // Standard Structre
             $table->boolean('disabled')->default(0);
