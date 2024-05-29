@@ -15,8 +15,8 @@ class CreateMgmSliderTable extends Migration
     {
         Schema::create('mgm_slider', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('content')->nullable();
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
             $table->string('picture');
             $table->bigInteger('menu_id')->nullable();      // Join ke Tabel stg_menu
             $table->integer('order_no')->nullable();

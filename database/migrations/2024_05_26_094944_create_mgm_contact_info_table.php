@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMgmSliderTable extends Migration
+class CreateMgmContactInfoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateMgmSliderTable extends Migration
      */
     public function up()
     {
-        Schema::create('mgm_slider', function (Blueprint $table) {
+        Schema::create('mgm_contact_info', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('content')->nullable();
-            $table->string('icon');
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('icon', 50)->nullable();
             $table->bigInteger('menu_id')->nullable();      // Join ke Tabel stg_menu
             $table->integer('order_no')->nullable();
 
@@ -39,6 +39,6 @@ class CreateMgmSliderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mgm_slider');
+        Schema::dropIfExists('mgm_contact_info');
     }
 }
