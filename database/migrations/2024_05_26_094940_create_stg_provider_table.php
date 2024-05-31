@@ -16,6 +16,8 @@ class CreateStgProviderTable extends Migration
         Schema::create('stg_provider', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100);
+            $table->string('subtitle', 100)->nullable();
+            $table->longText('description')->nullable();
             $table->string('birth_place', 50)->nullable();
             $table->date('birth_date')->nullable();
             $table->text('address')->nullable();

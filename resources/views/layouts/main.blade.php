@@ -5,7 +5,11 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<meta name="description" content="{{ $provider->title }}">
+	<meta name="keywords" content="">
+	<meta property="og:title" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
+	<meta property="og:type" content="website">
+	<meta property="og:image:alt" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
+	<meta name="description" content="{{ $provider->title }}, Rumah Sakit PKU Muhammadiyah Blora, Jawa Tengah">
 	<link href="{{ asset('/storage/'.$provider->logo) }}" rel="icon">
 	<title>@yield('title') | {{ $provider->title }}</title>
 
@@ -42,14 +46,11 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-12 col-lg-3">
 							<div class="footer-widget-about">
-								<img src="{{ asset('/storage/'.$provider->logo_header) }}" alt="logo" class="mb-30">
+								<img src="{{ asset('/storage/'.$provider->logo_header) }}" alt="{{ $provider->title }}" class="mb-30">
 								<p class="color-gray">
-									RS PKU Muhammadiyah Blora merupakan penyedia layanan kesehatan yang melayani berbagai tindakan medis
-									baik Rawat Jalan, Rawat Inap, IGD, dan lain-lain. Rumah sakit kami sudah terintegrasi dengan BPJS
-									V-Claim, I-Care ataupun Satu Sehat. Sehingga pasien lebih dimudahkan ketika ingin berobat di Rumah 
-									kami.
+									{!! $provider->description !!}
 								</p>
-								<a href="#" class="btn btn__primary btn__primary-style2 btn__link">
+								<a href="/doctor-schedule" class="btn btn__primary btn__primary-style2 btn__link">
 									<span>Make Appointment</span> <i class="icon-arrow-right"></i>
 								</a>
 							</div><!-- /.footer-widget__content -->
@@ -99,7 +100,7 @@
 					<div class="row align-items-center">
 						<div class="col-sm-12 col-md-6 col-lg-6">
 							<span class="fz-14">&copy; 2024, All Rights Reserved. Copyright by </span>
-							<a class="fz-14 color-primary" href="https://github.com/MrAisenodni">LAWU IT Consultant</a>
+							<a class="fz-14 color-primary" href="https://lawuit.com/">LAWU IT Consultant</a>
 						</div><!-- /.col-lg-6 -->
 						<div class="col-sm-12 col-md-6 col-lg-6">
 						<nav>
@@ -121,6 +122,17 @@
 	<script src="{{ asset('/js/jquery-3.5.1.min.js') }}"></script>
 	<script src="{{ asset('/js/plugins.js') }}"></script>
 	<script src="{{ asset('/js/main.js') }}"></script>
+
+	<!-- Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'GA_TRACKING_ID');
+	</script>
 </body>
 
 </html>

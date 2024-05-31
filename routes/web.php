@@ -23,3 +23,7 @@ Route::resource('/', HomeController::class);
 |||                             |||
 |||||||||||||||||||||||||||||||||||
 */
+
+
+// SITEMAP ROUTE
+Route::get('/sitemap', [HomeController::class, 'sitemap']);

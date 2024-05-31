@@ -12,61 +12,8 @@
     @includeIf('templates.slider', ['contents' => $sliders])
     @includeIf('templates.contact_info', ['contents' => $contact_infos])
     @includeif('templates.about_2', ['content' => $sliders])
+    @includeIf('templates.service_1', ['contents' => $services])
 
-    <!-- ======================
-        Features Layout 2
-    ========================= -->
-    <section class="features-layout2 pt-130 bg-overlay bg-overlay-primary">
-        <div class="bg-img"><img src="{{ asset('/images/backgrounds/2.jpg') }}" alt="background"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-8 offset-lg-1">
-                    <div class="heading__layout2 mb-50">
-                    <h3 class="heading__title color-white">Medcity Has Touched The Lives Of Patients & Providing Care for The
-                        Sickest In Our Community.</h3>
-                    </div>
-                </div><!-- /col-lg-5 -->
-            </div><!-- /.row -->
-            <div class="row mb-100">
-                <div class="col-sm-3 col-md-3 col-lg-1 offset-lg-5">
-                    <div class="heading__icon">
-                        <i class="icon-insurance"></i>
-                    </div>
-                </div><!-- /.col-lg-5 -->
-                <div class="col-sm-9 col-md-9 col-lg-6">
-                    <p class="heading__desc font-weight-bold color-white mb-30">
-                        Medcity has been present in Europe since 1990, offering innovative
-                        solutions, specializing in medical services for treatment of medical infrastructure. With over 100
-                        professionals actively participates in numerous initiatives aimed at creating sustainable change for
-                        patients!
-                    </p>
-                    <a href="#" class="btn btn__white btn__link">
-                        <i class="icon-arrow-right icon-filled"></i>
-                        <span>Our Core Values</span>
-                    </a>
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
-            <div class="row">
-                <!-- Feature item #1 -->
-                <div class="col-sm-6 col-md-6 col-lg-3">
-                    <div class="feature-item">
-                        <div class="feature__img">
-                            <img src="{{ asset('/images/services/1.jpg') }}" alt="service" loading="lazy">
-                        </div><!-- /.feature__img -->
-                        <div class="feature__content">
-                            <div class="feature__icon">
-                            <i class="icon-heart"></i>
-                            </div>
-                            <h4 class="feature__title">Medical Advices & Check Ups</h4>
-                        </div><!-- /.feature__content -->
-                        <a href="#" class="btn__link">
-                            <i class="icon-arrow-right icon-outlined"></i>
-                        </a>
-                    </div><!-- /.feature-item -->
-                </div><!-- /.col-lg-3 -->
-            </div>
-        </div><!-- /.container -->
-    </section><!-- /.Features Layout 2 -->
 
     <!-- ======================
         Work Process 
