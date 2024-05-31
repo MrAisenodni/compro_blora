@@ -5,12 +5,10 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<meta name="keywords" content="">
-	<meta property="og:title" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
-	<meta property="og:type" content="website">
+	<meta name="keywords" content="RS PKU Muhammadiyah Blora">
+	<meta property="title" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
 	<meta name="google-site-verification" content="lgFUyLnFtcZtoBln3oT45vvZiu0_6bIBRTIYXT1tnSM" />
-	<meta property="og:image:alt" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
-	<meta name="description" content="{{ $provider->title }}, Rumah Sakit PKU Muhammadiyah Blora, Jawa Tengah">
+	<meta name="description" content="{{ $provider->title }}, Rumah Sakit PKU Muhammadiyah Blora, Jawa Tengah, Profil">
 	<link href="{{ asset('/storage/'.$provider->logo) }}" rel="icon">
 	<title>@yield('title') | {{ $provider->title }}</title>
 
@@ -60,14 +58,13 @@
 							<div class="footer-widget-nav">
 								<h6 class="footer-widget__title">Departments</h6>
 								<nav>
-									<ul class="list-unstyled">
-										<li><a href="#">Neurology Clinic</a></li>
-										<li><a href="#">Cardiology Clinic</a></li>
-										<li><a href="#">Pathology Clinic</a></li>
-										<li><a href="#">Laboratory Analysis</a></li>
-										<li><a href="#">Pediatric Clinic</a></li>
-										<li><a href="#">Cardiac Clinic</a></li>
-									</ul>
+									@if ($services)
+										<ul class="list-unstyled">
+											@foreach ($services as $service)
+												<li><a href="/service-facilities/{{ $service->id }}">{{ $service->title }}</a></li>
+											@endforeach
+										</ul>
+									@endif
 								</nav>
 							</div><!-- /.footer-widget__content -->
 						</div><!-- /.col-lg-2 -->
@@ -132,7 +129,7 @@
 			dataLayer.push(arguments);
 		}
 		gtag('js', new Date());
-		gtag('config', 'GA_TRACKING_ID');
+		gtag('config', '{{ env('GA_TRACKING_ID') }}');
 	</script>
 </body>
 

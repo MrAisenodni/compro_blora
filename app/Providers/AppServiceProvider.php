@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Managements\ServiceDetail;
 use App\Models\Settings\{ Menu, Provider, SocialMedia };
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
             $data = [
                 'menus'         => Menu::select('id', 'title',  'url')->whereRaw("disabled = 0 AND parent_id = 0 AND is_parent = 0 AND is_login = 0 AND is_shown = 1")->orderBy('order_no')->get(),
                 'provider'      => Provider::select('id', 'title', 'description', 'birth_place', 'birth_date', 'address', 'province', 'city', 'district', 'village', 'maps', 'phone_no', 'home_no', 'office_no', 'logo', 'logo_header', 'logo_footer')->where('disabled', 0)->first(),
+                'services'      => ServiceDetail::select('id', 'title')->where('disabled', 0)->orderBy('order_no')->paginate(5),
             ];
 
             $view->with($data);
