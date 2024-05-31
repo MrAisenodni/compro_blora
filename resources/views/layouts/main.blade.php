@@ -8,6 +8,7 @@
 	<meta name="keywords" content="">
 	<meta property="og:title" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
 	<meta property="og:type" content="website">
+	<meta name="google-site-verification" content="lgFUyLnFtcZtoBln3oT45vvZiu0_6bIBRTIYXT1tnSM" />
 	<meta property="og:image:alt" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
 	<meta name="description" content="{{ $provider->title }}, Rumah Sakit PKU Muhammadiyah Blora, Jawa Tengah">
 	<link href="{{ asset('/storage/'.$provider->logo) }}" rel="icon">
@@ -46,7 +47,7 @@
 					<div class="row">
 						<div class="col-sm-12 col-md-12 col-lg-3">
 							<div class="footer-widget-about">
-								<img src="{{ asset('/storage/'.$provider->logo_header) }}" alt="{{ $provider->title }}" class="mb-30">
+								<img src="{{ asset('/storage/'.$provider->logo_footer) }}" alt="{{ $provider->title }}" class="mb-30">
 								<p class="color-gray">
 									{!! $provider->description !!}
 								</p>

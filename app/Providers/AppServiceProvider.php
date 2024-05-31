@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.main', function($view) {
             $data = [
                 'menus'         => Menu::select('id', 'title',  'url')->whereRaw("disabled = 0 AND parent_id = 0 AND is_parent = 0 AND is_login = 0 AND is_shown = 1")->orderBy('order_no')->get(),
-                'provider'      => Provider::select('id', 'title', 'description', 'birth_place', 'birth_date', 'address', 'province', 'city', 'district', 'village', 'maps', 'phone_no', 'home_no', 'office_no', 'logo', 'logo_header')->where('disabled', 0)->first(),
+                'provider'      => Provider::select('id', 'title', 'description', 'birth_place', 'birth_date', 'address', 'province', 'city', 'district', 'village', 'maps', 'phone_no', 'home_no', 'office_no', 'logo', 'logo_header', 'logo_footer')->where('disabled', 0)->first(),
             ];
 
             $view->with($data);

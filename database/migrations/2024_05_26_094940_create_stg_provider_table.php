@@ -31,6 +31,7 @@ class CreateStgProviderTable extends Migration
             $table->string('office_no', 25)->nullable();
             $table->string('logo')->nullable();
             $table->string('logo_header')->nullable();
+            $table->string('logo_footer')->nullable();
 
             // Standard Structre
             $table->boolean('disabled')->default(0);

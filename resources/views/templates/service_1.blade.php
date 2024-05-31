@@ -4,7 +4,7 @@
             Services Layout 1
         =========================== -->
         <section class="services-layout1 services-carousel">
-            <div class="bg-img"><img src="{{ asset('/storage/services/'.$content->picture) }}" alt="background"></div>
+            <div class="bg-img"><img src="{{ asset('/storage/services/'.$content->picture) }}" alt="{{ $provider->title }}"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">

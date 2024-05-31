@@ -8,6 +8,7 @@ use App\Repositories\Managements\Service\{ ServiceRepository, ServiceRepositoryI
 use App\Repositories\Managements\ServiceDetail\{ ServiceDetailRepository, ServiceDetailRepositoryInterface };
 use App\Repositories\Masters\Template\{ TemplateRepository, TemplateRepositoryInterface };
 use App\Repositories\Settings\Menu\{ MenuRepository, MenuRepositoryInterface };
+use App\Repositories\Settings\Provider\{ ProviderRepository, ProviderRepositoryInterface };
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -30,5 +31,6 @@ class RepositoryServiceProvider extends ServiceProvider
 
         // Setting Repositories
         $this->app->bind(MenuRepositoryInterface::class, MenuRepository::class);
+        $this->app->bind(ProviderRepositoryInterface::class, ProviderRepository::class);
     }
 }
