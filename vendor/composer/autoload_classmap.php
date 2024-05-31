@@ -49,6 +49,8 @@ return array(
     'App\\Repositories\\Settings\\Login\\LoginRepositoryInterface' => $baseDir . '/app/Repositories/Settings/Login/LoginRepositoryInterface.php',
     'App\\Repositories\\Settings\\Menu\\MenuRepository' => $baseDir . '/app/Repositories/Settings/Menu/MenuRepository.php',
     'App\\Repositories\\Settings\\Menu\\MenuRepositoryInterface' => $baseDir . '/app/Repositories/Settings/Menu/MenuRepositoryInterface.php',
+    'App\\Repositories\\Settings\\Provider\\ProviderRepository' => $baseDir . '/app/Repositories/Settings/Provider/ProviderRepository.php',
+    'App\\Repositories\\Settings\\Provider\\ProviderRepositoryInterface' => $baseDir . '/app/Repositories/Settings/Provider/ProviderRepositoryInterface.php',
     'App\\Services\\HomeService' => $baseDir . '/app/Services/HomeService.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/CorsService.php',

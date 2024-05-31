@@ -614,6 +614,8 @@ class ComposerStaticInitc61ff82cbf0142a401a48a8161e1595a
         'App\\Repositories\\Settings\\Login\\LoginRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Settings/Login/LoginRepositoryInterface.php',
         'App\\Repositories\\Settings\\Menu\\MenuRepository' => __DIR__ . '/../..' . '/app/Repositories/Settings/Menu/MenuRepository.php',
         'App\\Repositories\\Settings\\Menu\\MenuRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Settings/Menu/MenuRepositoryInterface.php',
+        'App\\Repositories\\Settings\\Provider\\ProviderRepository' => __DIR__ . '/../..' . '/app/Repositories/Settings/Provider/ProviderRepository.php',
+        'App\\Repositories\\Settings\\Provider\\ProviderRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Settings/Provider/ProviderRepositoryInterface.php',
         'App\\Services\\HomeService' => __DIR__ . '/../..' . '/app/Services/HomeService.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
