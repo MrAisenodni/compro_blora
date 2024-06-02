@@ -3,7 +3,7 @@
         Slider
     ============================== -->
     <section class="slider">
-        <div class="slick-carousel m-slides-0" data-slick='{"slidesToShow": 1, "arrows": true, "dots": false, "speed": 700,"fade": true,"cssEase": "linear"}'>
+        <div class="slick-carousel m-slides-0" data-slick='{"slidesToShow": 1, "autoplay": true, "arrows": true, "dots": false, "speed": 700,"fade": true,"cssEase": "linear"}'>
             @foreach ($contents as $content)
                 <div class="slide-item align-v-h">
                     <div class="bg-img"><img src="{{ asset('/storage/sliders/' . $content->picture) }}" alt="{{ $provider->title }}"></div>

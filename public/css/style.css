@@ -981,6 +981,11 @@ textarea {
   position: relative;
   z-index: 1;
 }
+.bg-img-custom {
+  position: relative;
+  z-index: 1;
+  height: 200px;
+}
 
 .background-size-auto {
   background-size: auto !important;

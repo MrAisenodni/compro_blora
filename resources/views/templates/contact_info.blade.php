@@ -3,7 +3,7 @@
         contact info
     ============================== -->
     <section class="contact-info py-0">
-        <div class="bg-img"><img src="{{ asset('/storage/contact_info/background.png') }}" alt="{{ $provider->title }}"></div>
+        <div class="bg-img"><img src="{{ asset('/storage/contact_info/background.webp') }}" alt="{{ $provider->title }}"></div>
         <div class="container">
             <div class="row row-no-gutter boxes-wrapper">
                 @foreach ($contents as $content)
