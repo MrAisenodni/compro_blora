@@ -3,7 +3,7 @@
     Features Layout 3
     ========================= -->
     <section class="features-layout3 py-0">
-        <div class="bg-img"><img src="{{ asset('/storage/feature/background.webp') }}" alt="{{ $provider->title }}"></div>
+        <div class="bg-img"><img src="{{ asset('/storage/features/background.webp') }}" alt="{{ $provider->title }}"></div>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-8">
