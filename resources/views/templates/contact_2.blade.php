@@ -3,7 +3,11 @@
         contact layout 2
     =========================== -->
     <section class="features-layout3 py-0">
-        <div class="bg-img"><img src="{{ asset('/storage/features/1_feature_1.png') }}" alt="{{ $provider->title }}"></div>
+        @if (env('APP_ENV') == 'production')
+            <div class="bg-img"><img src="{{ asset('/storage/features/1_feature_1.webp') }}" alt="{{ $provider->title }}"></div>
+        @else
+            <div class="bg-img"><img src="{{ asset('/storage/features/1_feature_1.png') }}" alt="{{ $provider->title }}"></div>
+        @endif
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-2">
