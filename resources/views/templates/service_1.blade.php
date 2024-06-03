@@ -28,7 +28,7 @@
                                         <div class="service__content">
                                             <h4 class="service__title">{{ $detail->title }}</h4>
                                             {!! $detail->description !!}
-                                            <a href="/service-facilities/{{ $detail->id }}" class="btn btn__secondary btn__outlined btn__rounded">
+                                            <a href="/service-facilities/{{ $detail->slug }}" class="btn btn__secondary btn__outlined btn__rounded">
                                                 <span>Read More</span>
                                                 <i class="icon-arrow-right"></i>
                                             </a>

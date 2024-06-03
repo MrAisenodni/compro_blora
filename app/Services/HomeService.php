@@ -29,27 +29,14 @@ class HomeService
 
     public function index()
     {
-        $menu = $this->menuRepository->findByCondition("id, url", "url = ''");
+        $menu = $this->menuRepository->findByCondition("id, title, description, url", "url = ''");
 
         $data = [
-            'sliders'           => $this->sliderRepository->getByCondition("id, title, description, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, description, icon", "menu_id = $menu->id", "order_no ASC"), 
-            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
+            'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
+            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
+            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
             'provider'          => $this->providerRepository->findByCondition("title", "disabled = 0"),
-            'c_menu'            => $menu->url,
-        ];
-
-        return $data;
-    }
-
-    public function about()
-    {
-        $menu = $this->menuRepository->findByCondition("id, url", "url = ''");
-
-        $data = [
-            'sliders'           => $this->sliderRepository->getByCondition("title, description, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'contact_infos'     => $this->contactInfoRepository->getByCondition("title, description, icon", "menu_id = $menu->id", "order_no ASC"), 
-            'c_menu'            => $menu->url,
+            'c_menu'            => $menu,
         ];
 
         return $data;

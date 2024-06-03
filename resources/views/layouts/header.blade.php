@@ -5,7 +5,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <ul class="contact__list d-flex flex-wrap align-items-center list-unstyled mb-0">
                         <li>
-                            <i class="icon-phone"></i><a href="tel:+5565454117">Emergency Line: {{ $provider->office_no }}</a>
+                            <i class="icon-phone"></i><a href="tel:{{ $provider->office_no }}">Emergency Line: {{ $provider->office_no }}</a>
                         </li>
                         <li>
                             <i class="icon-location"></i><a href="#">Location: {{ $provider->city }}, {{ $provider->province }}</a>
@@ -22,10 +22,10 @@
                                 @endforeach
                             @endif
                         </ul><!-- /.social-icons -->
-                        <form class="header-topbar__search">
+                        {{-- <form class="header-topbar__search">
                             <input type="text" class="form-control" placeholder="Search...">
                             <button class="header-topbar__search-btn"><i class="fa fa-search"></i></button>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div><!-- /.col-12 -->

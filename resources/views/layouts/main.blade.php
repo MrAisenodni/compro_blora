@@ -61,7 +61,7 @@
 									@if ($services)
 										<ul class="list-unstyled">
 											@foreach ($services as $service)
-												<li><a href="/service-facilities/{{ $service->id }}">{{ $service->title }}</a></li>
+												<li><a href="/fasilitas-pelayanan/{{ $service->slug }}">{{ $service->title }}</a></li>
 											@endforeach
 										</ul>
 									@endif
@@ -83,12 +83,25 @@
 							</div><!-- /.footer-widget__content -->
 						</div><!-- /.col-lg-2 -->
 						<div class="col-sm-12 col-md-6 col-lg-4">
-							<div class="footer-widget-contact" style="padding: 0px">
-								<!-- ========================= 
-										Google Map
-								=========================  -->
-								{!! $provider->maps !!}
-							</div><!-- /.footer-widget__content -->
+							<div class="row">
+								<div class="col-sm-12 mb-n3">
+									<div class="footer-widget-contact" style="padding: 0px">
+										<!-- ========================= 
+												Google Map
+										=========================  -->
+										{!! $provider->maps !!}
+									</div><!-- /.footer-widget__content -->
+								</div>
+								<div class="col-sm-12">
+									<ul class="social-icons-white list-unstyled mb-0 mr-30">
+										@if ($sosmeds)
+											@foreach ($sosmeds as $sosmed)
+												<li><a href="{{ $sosmed->url }}" data-title="{{ $sosmed->title }}"><i class="{{ $sosmed->icon }}"></i></a></li>
+											@endforeach
+										@endif
+									</ul><!-- /.social-icons -->
+								</div>
+							</div>
 						</div><!-- /.col-lg-2 -->
 					</div><!-- /.row -->
 				</div><!-- /.container -->

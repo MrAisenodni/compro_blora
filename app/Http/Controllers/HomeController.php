@@ -19,6 +19,11 @@ class HomeController extends Controller
         return view('index', $data);
     }
 
+    public function store(Request $request)
+    {
+        abort(503);
+    }
+
     public function about()
     {
         $data = $this->homeService->about();

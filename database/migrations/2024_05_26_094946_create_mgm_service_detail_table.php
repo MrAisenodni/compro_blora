@@ -17,6 +17,7 @@ class CreateMgmServiceDetailTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
+            $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->string('icon', 50)->nullable();
             $table->string('picture')->nullable();

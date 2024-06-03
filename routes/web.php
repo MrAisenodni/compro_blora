@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/', HomeController::class);
+Route::post('/contact', [HomeController::class, 'store']);
 
 /*
 |||||||||||||||||||||||||||||||||||

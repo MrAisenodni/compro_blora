@@ -16,8 +16,16 @@
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ asset('/admin/css/main.css') }}">
 	<style>
+		.card {
+			width: 125%;
+		}
+		.auth-main::before {
+			width: 450px;
+		}
 		.auth-main.hospital:after {
-			background: url(admin/images/hospital_auth_bg.jpg) no-repeat top left fixed;
+			background: url(storage/backgrounds/1.jpeg) no-repeat top right fixed;
+			width: 100%;
+			max-height: 100%;
 		} 
 	</style>
 </head>
@@ -29,7 +37,7 @@
 			<div class="vertical-align-middle auth-main hospital">
 				<div class="auth-box">
                     <div class="top">
-                        <img src="{{ asset('/admin/images/logo-white.svg') }}" alt="Iconic">
+                        <img src="{{ asset('/storage/logo_header_back.png') }}" alt="{{ env('APP_NAME') }}" style="width: 250px">
                     </div>
 					<div class="card">
                         <div class="header">

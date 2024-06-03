@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<title>500 | Company Profile</title>
+<title>503 | Company Profile</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="{{ env('APP_NAME') }}">
@@ -43,13 +43,14 @@
                         <div class="header">
                             <h3>
                                 <span class="clearfix title">
-                                    <span class="number">500</span> <br>
-                                    <span>Page have been expired</span>
+                                    <span class="number">503</span> <br>
+                                    <span>Coming Soon</span>
                                 </span>
                             </h3>
                         </div>
                         <div class="body">
-                            <p>Please refresh your page.</p>
+                            <p>Halaman masih dalam tahap pembuatan.
+                                <br>Silahkan dicoba lagi nanti.</p>
                             <p><a href="/" class="btn btn-primary"><i class="fa fa-home"></i> <span>Home</span></a></p>
                         </div>
                     </div>

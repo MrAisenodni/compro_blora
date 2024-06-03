@@ -16,6 +16,8 @@ class CreateMgmContactInfoTable extends Migration
         Schema::create('mgm_contact_info', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->string('subtitle')->nullable();
+            $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->string('icon', 50)->nullable();
             $table->bigInteger('menu_id')->nullable();      // Join ke Tabel stg_menu
