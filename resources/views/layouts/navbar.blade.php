@@ -14,10 +14,14 @@
             <button class="close-mobile-menu d-block d-lg-none"><i class="fas fa-times"></i></button>
         </div><!-- /.navbar-collapse -->
         <div class="d-none d-xl-flex align-items-center position-relative ml-30">
-            <a href="/jadwal-dokter" class="btn btn__primary btn__rounded ml-30">
+            {{-- <a href="/jadwal-dokter" class="btn btn__primary btn__rounded ml-30">
                 <i class="icon-calendar"></i>
                 <span>Appointment</span>
-            </a>
+            </a> --}}
+            <button type="button" class="btn btn__primary btn__rounded ml-30" data-toggle="modal" data-target="#exampleModal">
+                <i class="icon-calendar"></i>
+                <span>Booking Jadwal</span>
+            </button>
         </div>
     </div><!-- /.container -->
 </nav><!-- /.navabr -->

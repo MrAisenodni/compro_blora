@@ -4460,13 +4460,13 @@ input[type=radio] {
 }
 
 @media (min-width: 1200px) {
-  .features-layout3 .feature-wrapper {
+  .features-layout3 .feature-wrapper, .features-layout3 .modal {
     overflow: hidden;
     margin-top: -50px;
     border-radius: 15px;
     box-shadow: 0px 5px 83px 0px rgba(9, 29, 62, 0.08);
   }
-  .features-layout3 .feature-wrapper > [class*=col-]:not(:last-of-type) {
+  .features-layout3 .feature-wrapper > [class*=col-]:not(:last-of-type), .features-layout3 .modal > [class*=col-]:not(:last-of-type) {
     border-right: 2px solid #e6e8eb;
   }
   .features-layout3 .feature-item {
