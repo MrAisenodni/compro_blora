@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-        <loc>https://pkublora.id</loc>
-            <changefreq>daily</changefreq>
+        <loc>http://127.0.0.1:7003</loc>
+        <lastmod>2024-06-15T07:48:11+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+            </url>
+    <url>
+        <loc>http://127.0.0.1:7003/jadwal-dokter</loc>
+        <lastmod>2024-06-15T07:48:11+00:00</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
             </url>
     <url>
-        <loc>https://pkublora.id/jadwal_dokter</loc>
-            <changefreq>daily</changefreq>
+        <loc>http://127.0.0.1:7003/fasilitas-pelayanan</loc>
+        <lastmod>2024-06-15T07:48:11+00:00</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
             </url>
     <url>
-        <loc>https://pkublora.id/fasilitas-pelayanan</loc>
-            <changefreq>daily</changefreq>
+        <loc>http://127.0.0.1:7003/tentang</loc>
+        <lastmod>2024-06-15T07:48:11+00:00</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
             </url>
     <url>
-        <loc>https://pkublora.id/tentang</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>https://pkublora.id/kontak</loc>
-            <changefreq>daily</changefreq>
+        <loc>http://127.0.0.1:7003/kontak</loc>
+        <lastmod>2024-06-15T07:48:11+00:00</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
             </url>
 </urlset>

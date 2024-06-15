@@ -31,4 +31,4 @@ Route::post('/contact', [HomeController::class, 'store']);
 
 
 // SITEMAP ROUTE
-Route::get('/sitemap', [HomeController::class, 'sitemap']);
+Route::get('/sitemap.xml', [HomeController::class, 'sitemap']);
