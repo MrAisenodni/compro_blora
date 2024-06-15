@@ -104,13 +104,14 @@ class HomeService
 
     public function sitemap()
     {
-        $sitemap = Sitemap::create()
+        $sitemap = Sitemap::create(env('APP_URL_PRODUCTION'))
             ->add(Url::create('/')->setLastModificationDate(now())->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)->setPriority(1.0))
             ->add(Url::create('/jadwal-dokter')->setLastModificationDate(now())->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.8))
             ->add(Url::create('/fasilitas-pelayanan')->setLastModificationDate(now())->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.8))
             ->add(Url::create('/tentang')->setLastModificationDate(now())->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.8))
-            ->add(Url::create('/kontak')->setLastModificationDate(now())->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.8));
+            ->add(Url::create('/kontak')->setLastModificationDate(now())->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.8))
+            ->writeToFile(public_path('sitemap.xml'));
 
-        return $sitemap->toResponse(request());
+        return $sitemap->render();
     }
 }
