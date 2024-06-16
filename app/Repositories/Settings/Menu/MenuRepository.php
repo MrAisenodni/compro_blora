@@ -6,23 +6,16 @@ use App\Models\Settings\Menu;
 
 class MenuRepository implements MenuRepositoryInterface
 {
-    public function getAll()
+    public function findBySlug($slug)
     {
-        $data = Menu::where('disabled', 0)->get();
+        $data = Menu::selectRaw("id, title, route, url, description")->whereRaw("disabled = 0 AND is_login = 0 AND is_shown = 1 AND url = '$slug'");
 
-        return $data;
+        return $data->first();
     }
 
     public function findById($id)
     {
         $data = Menu::where('id', $id)->where('disabled', 0);
-
-        return $data->first();
-    }
-
-    public function findByCondition($select, $where)
-    {
-        $data = Menu::selectRaw("$select")->whereRaw("$where");
 
         return $data->first();
     }

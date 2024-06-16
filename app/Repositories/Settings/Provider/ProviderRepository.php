@@ -8,21 +8,21 @@ class ProviderRepository implements ProviderRepositoryInterface
 {
     public function getAll()
     {
-        $data = Provider::where('disabled', 0)->get();
+        $data = Provider::where('disabled', 0);
 
-        return $data;
+        return $data->get();
+    }
+
+    public function findData()
+    {
+        $data = Provider::selectRaw("title, maps")->where('disabled', 0);
+
+        return $data->first();
     }
 
     public function findById($id)
     {
         $data = Provider::where('id', $id)->where('disabled', 0);
-
-        return $data->first();
-    }
-
-    public function findByCondition($select, $where)
-    {
-        $data = Provider::selectRaw("$select")->whereRaw("$where");
 
         return $data->first();
     }

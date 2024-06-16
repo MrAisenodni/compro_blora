@@ -16,6 +16,7 @@ class CreateStgMenuTable extends Migration
         Schema::create('stg_menu', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->string('route')->nullable();
             $table->string('url')->nullable();
             $table->string('icon', 50)->nullable();
             $table->longText('description')->nullable();

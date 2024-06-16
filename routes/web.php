@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/fasilitas-pelayanan', [HomeController::class, 'service_facilities']);
-Route::get('/jadwal-dokter', [HomeController::class, 'doctor_schedule']);
-Route::get('/tentang', [HomeController::class, 'about']);
-Route::get('/kontak', [HomeController::class, 'contact']);
-Route::post('/contact', [HomeController::class, 'store']);
+Route::get('/{slug}', [HomeController::class, 'page']);
+// Route::get('/jadwal-dokter', [HomeController::class, 'doctor_schedule']);
+// Route::get('/tentang', [HomeController::class, 'about']);
+// Route::get('/kontak', [HomeController::class, 'contact']);
+// Route::post('/contact', [HomeController::class, 'store']);
 
 /*
 |||||||||||||||||||||||||||||||||||

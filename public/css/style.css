@@ -6854,10 +6854,11 @@ textarea.form-control {
 .doctors-timetable th {
   font-weight: 700;
   color: #848e9f;
-  padding: 17px 15px;
+  padding: 5px 10px;
 }
 .doctors-timetable th,
-.doctors-timetable td {
+.doctors-timetable td,
+.doctors-timetable .custom-td {
   text-align: center;
   vertical-align: middle;
   border-radius: 14px;
@@ -6874,7 +6875,7 @@ textarea.form-control {
   font-weight: 700;
 }
 .doctors-timetable .event {
-  padding: 27px 10px;
+  padding: 10px 10px;
   vertical-align: top;
   color: #ffffff;
   background-color: #435ba1;

@@ -24,32 +24,11 @@ class HomeController extends Controller
         abort(503);
     }
 
-    public function about()
+    public function page($slug)
     {
-        $data = $this->homeService->about();
+        $data = $this->homeService->page($slug);
 
-        return view('about', $data);
-    }
-
-    public function contact()
-    {
-        $data = $this->homeService->contact();
-
-        return view('contact', $data);
-    }
-
-    public function service_facilities()
-    {
-        $data = $this->homeService->service_facilities();
-
-        return view('service_facilities', $data);
-    }
-
-    public function doctor_schedule()
-    {
-        $data = $this->homeService->doctor_schedule();
-
-        return view('doctor_schedule', $data);
+        return view($data['c_menu']->route, $data);
     }
 
     public function sitemap()

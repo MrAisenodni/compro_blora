@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title', $c_menu->title)
-@section('meta-description', 'Rumah Sakit PKU Muhammadiyah Blora - Layanan kesehatan terbaik dengan fasilitas modern dan dokter spesialis berpengalaman. Terletak di Blora, Jawa Tengah, kami siap melayani kebutuhan medis Anda.')
+@section('meta-description', $c_menu->description)
 
 @section('styles')
 @endsection
@@ -10,7 +10,9 @@
 @endsection
 
 @section('content')
-    {!! $c_menu->description !!}
+    <h1 style="display: none">{{ $provider->title }}</h1>
+    <div style="display: none">{{ $c_menu->descrtiption }}</div>
+    
     @includeIf('templates.slider', ['contents' => $sliders])
     @includeIf('templates.contact_1', ['contents' => null])
     {{-- @includeIf('templates.contact_2', ['contents' => $sliders]) --}}

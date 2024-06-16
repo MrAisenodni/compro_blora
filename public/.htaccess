@@ -19,3 +19,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+<Files "sitemap.xml">
+    Order Allow,Deny
+    Allow from all
+</Files>

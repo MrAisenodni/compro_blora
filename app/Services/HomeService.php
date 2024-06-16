@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\AppHelper;
 use App\Repositories\Managements\ContactInfo\ContactInfoRepositoryInterface;
 use App\Repositories\Managements\Service\ServiceRepositoryInterface;
 use App\Repositories\Managements\ServiceDetail\ServiceDetailRepositoryInterface;
@@ -29,13 +30,28 @@ class HomeService
 
     public function index()
     {
-        $menu = $this->menuRepository->findByCondition("id, title, description, url", "url = ''");
+        $menu = $this->menuRepository->findBySlug('');
 
         $data = [
+            'provider'          => $this->providerRepository->findData(),
             'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
             'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
             'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'provider'          => $this->providerRepository->findByCondition("title", "disabled = 0"),
+            'c_menu'            => $menu,
+        ];
+
+        return $data;
+    }
+
+    public function page($slug)
+    {
+        $menu = $this->menuRepository->findBySlug($slug);
+
+        $data = [
+            'provider'          => $this->providerRepository->findData(),
+            'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
+            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
+            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
             'c_menu'            => $menu,
         ];
 

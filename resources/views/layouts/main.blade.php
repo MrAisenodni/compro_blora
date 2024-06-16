@@ -49,8 +49,8 @@
 								<p class="color-gray">
 									{!! $provider->description !!}
 								</p>
-								<a href="/doctor-schedule" class="btn btn__primary btn__primary-style2 btn__link">
-									<span>Make Appointment</span> <i class="icon-arrow-right"></i>
+								<a href="/jadwal-dokter" class="btn btn__primary btn__primary-style2 btn__link">
+									<span>Booking Jadwal</span> <i class="icon-arrow-right"></i>
 								</a>
 							</div><!-- /.footer-widget__content -->
 						</div><!-- /.col-xl-2 -->
@@ -89,7 +89,7 @@
 										<!-- ========================= 
 												Google Map
 										=========================  -->
-										{!! $provider->maps !!}
+										<iframe frameborder="0" height="250px" width="100%" src="{!! $provider->maps !!}"></iframe>
 									</div><!-- /.footer-widget__content -->
 								</div>
 								<div class="col-sm-12">

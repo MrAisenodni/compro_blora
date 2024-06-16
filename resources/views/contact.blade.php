@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title', $c_menu->title)
-@section('meta-description', 'Rumah Sakit PKU Muhammadiyah Blora, pusat kesehatan terkemuka di Blora, Jawa Tengah. Menyediakan pelayanan kesehatan unggulan dengan tim medis profesional dan fasilitas lengkap.')
+@section('meta-description', $c_menu->description)
 
 @section('styles')
 @endsection
@@ -10,14 +10,15 @@
 @endsection
 
 @section('content')
-    {!! $c_menu->description !!}
-    <!-- ========================= 
-            Google Map
-    =========================  -->
-    <section class="google-map py-0">
-        <iframe frameborder="0" height="500" width="100%"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.3242869853525!2d111.44773257399808!3d-6.971015593029616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7741b599c30ead%3A0xfd91f5d5924da287!2sRS%20PKU%20Muhammadiyah%20Blora!5e0!3m2!1sid!2sid!4v1716834529379!5m2!1sid!2sid"></iframe>
-      </section><!-- /.GoogleMap -->
+  <h1 style="display: none">{{ $provider->title }}</h1>
+  <div style="display: none">{{ $c_menu->description }}</div>
+
+  <!-- ========================= 
+          Google Map
+  =========================  -->
+  <section class="google-map py-0">
+    <iframe frameborder="0" height="500" width="100%" src="{!! $provider->maps !!}"></iframe>
+  </section><!-- /.GoogleMap -->
   
       <!-- ==========================
           contact layout 1

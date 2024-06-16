@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title', $c_menu->title)
-@section('meta-description', 'Dapatkan perawatan medis dari dokter spesialis berpengalaman di Rumah Sakit PKU Muhammadiyah Blora. Kami berkomitmen memberikan pelayanan kesehatan terbaik untuk Anda dan keluarga.')
+@section('meta-description', $c_menu->description)
 
 @section('styles')
 @endsection
@@ -10,31 +10,33 @@
 @endsection
 
 @section('content')
-    {!! $c_menu->description !!}
+  <h1 style="display: none">{{ $provider->title }}</h1>
+  <div style="display: none">{{ $c_menu->description }}</div>
+  
     <!-- ========================
        page title 
     =========================== -->
     <section class="page-title page-title-layout5">
-        <div class="bg-img"><img src="assets/images/backgrounds/6.jpg" alt="background"></div>
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <h1 class="pagetitle__heading">Doctor’s Timetable</h1>
-              <nav>
-                <ol class="breadcrumb mb-0">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Doctor’s Timetable</li>
-                </ol>
-              </nav>
-            </div><!-- /.col-12 -->
-          </div><!-- /.row -->
-        </div><!-- /.container -->
-      </section><!-- /.page-title -->
+      <div class="bg-img"><img src="{{ asset('/images/backgrounds/6.jpg') }}" alt="background"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="pagetitle__heading">{{ $c_menu->title }}</h1>
+            <nav>
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $c_menu->title }}</li>
+              </ol>
+            </nav>
+          </div><!-- /.col-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.page-title -->
   
       <!-- ========================
          Doctors Timetable
       ========================== -->
-      <section>
+      <section style="padding-top: 50px; padding-bottom: 50px">
         <div class="container">
           <div class="row">
             <div class="col-12">
@@ -43,364 +45,53 @@
                   <thead>
                     <tr>
                       <th></th>
-                      <th>Sunday</th>
-                      <th>Monday</th>
-                      <th>Tuesday</th>
-                      <th>Wednesday</th>
-                      <th>Thursday</th>
-                      <th>Friday</th>
-                      <th>Saturday</th>
+                      @for ($i = 0; $i < 7; $i++)
+                        @php
+                          $date = date('d M Y', strtotime("+$i day", strtotime(now())));
+                          $dayz = date('w', strtotime("+$i day", strtotime(now())));
+                        @endphp
+                        <th>{{ $date }}<br>{{ AppHelper::indo_day($dayz) }}</th>
+                      @endfor
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        08.00
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Neurology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>09.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Muldoone. R</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Cardiology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>09.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Brain.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pathology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>09.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Andaloro.M</div>
-                      </td>
-                      <td class="event" rowspan="3">
-                        <a class="event__header" href="#">Laboratory</a>
-                        <div class="event__type">Analysis</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Markus.S</div>
-                        <hr>
-                        <a class="event__header" href="#">Ophthalmology</a>
-                        <div class="event__type">Analysis</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Markus.S</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pediatric</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>09.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Nicole. B</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Physiotherapy</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>09.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Alex.K</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Urology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>08.00</span><span>09.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Darlen.G</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        09.00
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Maternity</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Muldoone. R</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Oncology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Brain.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pathology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Andaloro.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Audiology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Nicole. B</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Cardiac</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Alex.K</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Urology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>10.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Darlen.G</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        10.00
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Neurology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Muldoone. R</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Cardiology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Brain.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pathology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Andaloro.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Maternity</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Nicole. B</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Oncology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Alex.K</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Urology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>09.00</span><span>11.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Darlen.G</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        11.00
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Physiotherapy</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>12.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Muldoone. R</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Cardiology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>12.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Brain.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Maternity</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>12.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Andaloro.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pediatric</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>12.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Nicole. B</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Cardiac</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>12.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Alex.K</div>
-                      </td>
-                      <td class="event" rowspan="3">
-                        <a class="event__header" href="#">Laboratory</a>
-                        <div class="event__type">Analysis</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>13.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Markus.S</div>
-                        <hr>
-                        <a class="event__header" href="#">Physiotherapy</a>
-                        <div class="event__type">Analysis</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Markus.S</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Urology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>11.00</span><span>12.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Darlen.G</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        12.00
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Neurology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>15.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Muldoone. R</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Ophthalmology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>15.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Brain.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Oncology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>15.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Andaloro.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Audiology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>15.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Nicole. B</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Physiotherapy</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>15.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Alex.K</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Urology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>12.00</span><span>15.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Darlen.G</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        13.00
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Oncology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>13.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Muldoone. R</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Audiology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>13.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Brain.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pathology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>13.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Andaloro.M</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Pediatric</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>13.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Nicole. B</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Maternity</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>13.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Alex.K</div>
-                      </td>
-                      <td class="event">
-                        <a class="event__header" href="#">Ophthalmology</a>
-                        <div class="event__type">Consultation</div>
-                        <div class="event__time">
-                          <span>13.00</span><span>14.00</span>
-                        </div>
-                        <div class="doctor__name">Dr. Darlen.G</div>
-                      </td>
-                    </tr>
+                    @php
+                      $response = AppHelper::api(env('API_URL').'doctor_time', 'GET', null, null);
+                      $data = json_decode($response)->response->data;
+                    @endphp
+
+                    @if ($data)
+                        @foreach ($data as $item)
+                            <tr>
+                              <td>
+                                {{ $item->range_time }}
+                              </td>
+                              
+                              @for ($i = 0; $i < 7; $i++)
+                                @php
+                                  $dayz = date('w', strtotime("+$i day", strtotime(now())));
+                                  $dayz = $dayz + 1;
+                                  $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$dayz, 'GET', null, null);
+                                  $schedules = json_decode($response)->response->data;
+                                @endphp
+
+                                <td>
+                                  @if ($schedules)
+                                    @foreach ($schedules as $schedule)
+                                      <div class="custom-td event">
+                                        <a class="event__header" href="/jadwal_dokter/{{ $schedule->doctor_code }}">{{ $schedule->poli_name }}</a>
+                                        <div class="event__time">
+                                          <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                                        </div>
+                                        <div class="doctor__name">{{ $schedule->doctor_name }}</div>
+                                      </div>
+                                    @endforeach
+                                  @endif                                  
+                                </td>  
+                              @endfor=
+                            </tr>
+                        @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>
