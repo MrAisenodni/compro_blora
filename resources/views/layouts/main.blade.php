@@ -12,6 +12,8 @@
 	<link href="{{ asset('/storage/'.$provider->logo) }}" rel="icon">
 	<title>@yield('title') | {{ $provider->title }}</title>
 
+	
+	{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Roboto:wght@400;700&display=swap">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 	@yield('styles')
@@ -129,8 +131,9 @@
 		<button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
 	</div><!-- /.wrapper -->
 
-	@yield('scripts')
 	<script src="{{ asset('/js/jquery-3.5.1.min.js') }}"></script>
+	{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+	@yield('scripts')
 	<script src="{{ asset('/js/plugins.js') }}"></script>
 	<script src="{{ asset('/js/main.js') }}"></script>
 

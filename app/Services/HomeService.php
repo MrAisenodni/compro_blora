@@ -58,66 +58,6 @@ class HomeService
         return $data;
     }
 
-    public function about()
-    {
-        $menu = $this->menuRepository->findByCondition("id, title, description, url", "url = 'tentang'");
-
-        $data = [
-            'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
-            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'provider'          => $this->providerRepository->findByCondition("title", "disabled = 0"),
-            'c_menu'            => $menu,
-        ];
-
-        return $data;
-    }
-
-    public function contact()
-    {
-        $menu = $this->menuRepository->findByCondition("id, title, description, url", "url = 'kontak'");
-
-        $data = [
-            'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
-            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'provider'          => $this->providerRepository->findByCondition("title", "disabled = 0"),
-            'c_menu'            => $menu,
-        ];
-
-        return $data;
-    }
-
-    public function service_facilities()
-    {
-        $menu = $this->menuRepository->findByCondition("id, title, description, url", "url = 'fasilitas-pelayanan'");
-
-        $data = [
-            'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
-            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'provider'          => $this->providerRepository->findByCondition("title", "disabled = 0"),
-            'c_menu'            => $menu,
-        ];
-
-        return $data;
-    }
-
-    public function doctor_schedule()
-    {
-        $menu = $this->menuRepository->findByCondition("id, title, description, url", "url = 'jadwal-dokter'");
-
-        $data = [
-            'sliders'           => $this->sliderRepository->getByCondition("id, title, subtitle, slug, description, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
-            'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
-            'provider'          => $this->providerRepository->findByCondition("title", "disabled = 0"),
-            'c_menu'            => $menu,
-        ];
-
-        return $data;
-    }
-
     public function sitemap()
     {
         $sitemap = Sitemap::create(env('APP_URL_PRODUCTION'))

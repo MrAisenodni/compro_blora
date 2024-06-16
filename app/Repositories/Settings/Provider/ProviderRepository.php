@@ -15,7 +15,7 @@ class ProviderRepository implements ProviderRepositoryInterface
 
     public function findData()
     {
-        $data = Provider::selectRaw("title, maps")->where('disabled', 0);
+        $data = Provider::selectRaw("title, maps, address")->where('disabled', 0);
 
         return $data->first();
     }
