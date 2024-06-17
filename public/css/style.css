@@ -1836,7 +1836,8 @@ input[type=radio] {
   height: 35px;
   line-height: 35px;
   border-radius: 60px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
+  /* margin-bottom: 30px; */
 }
 .nice-select .list {
   width: 100%;

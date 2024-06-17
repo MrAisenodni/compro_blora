@@ -58,6 +58,132 @@ class HomeService
         return $data;
     }
 
+    public function store($request, $slug)
+    {
+        if ($request->new_patient == 1)
+        {
+            $validated = $request->validate([
+                'new_nik'               => 'required|min:16|max:16',
+                'full_name'             => 'required|min:3',
+                'gender'                => 'required',
+                'new_birth_date'        => 'required',
+                'new_doctor'            => 'required',
+                'new_schedule'          => 'required',
+                'new_registration_date' => 'required|after_or_equal:'.date('Y-m-d', strtotime(now())),
+                'new_poli'              => 'required',
+            ]);
+
+            // Deklarasi Variabel Gabungan
+            $nik                = $request->new_nik;
+            $birth_date         = $request->new_birth_date;
+            $doctor             = $request->new_doctor;
+            $poli               = $request->new_poli;
+
+            // Validate registration_date must be less than 7 days
+            $registrationDateTime   = $request->new_registration_date.' '.$request->new_schedule;
+            $registrationTimestamp  = strtotime($registrationDateTime);
+            $currentTimestamp       = time();
+            $error                  = null;
+            
+            // Menghitung 7 hari yang akan datang
+            $sevenDaysAgoTimestamp = strtotime('7 days', $currentTimestamp);
+
+            // Validasi Tanggal Registrasi tidak boleh lebih dari 7 hari
+            if ($registrationTimestamp > $sevenDaysAgoTimestamp) {
+                $error['new_registration_date'] = 'Tanggal Registrasi tidak boleh lebih dari 7 hari.';
+            }
+
+            // Menghitung 5 jam 
+            $fiveHoursAgoTimestamp = strtotime('5 hours', $currentTimestamp);
+
+            // Validasi Tanggal Registrasi yang sama tidak boleh lebih dari 5 jam
+            if ($registrationTimestamp < $fiveHoursAgoTimestamp) {
+                $error['new_schedule'] = 'Jadwal Dokter tidak boleh kurang dari 5 jam di tanggal yang sama.';
+            }
+
+            // Validasi Tanggal Registrasi tidak boleh kurang dari jam saat ini
+            if ($registrationTimestamp < $currentTimestamp)
+            {
+                $error['new_schedule'] = 'Jadwal Dokter tidak boleh kurang dari jam saat ini.';
+            }
+
+            if ($error) return back()->withErrors($error)->withInput();
+
+            // Deklarasi Request ke API
+            $data = [
+                'full_name'     => $request->full_name,
+                'gender'        => $request->gender,
+                'new_patient'   => $request->new_patient,
+            ];
+        }
+        else 
+        {
+            $validated = $request->validate([
+                'mr_no'                 => 'required',
+                'old_nik'               => 'required|min:16|max:16',
+                'old_birth_date'        => 'required',
+                'old_doctor'            => 'required',
+                'old_schedule'          => 'required',
+                'old_registration_date' => 'required|after_or_equal:'.date('Y-m-d', strtotime(now())),
+                'old_poli'              => 'required',
+            ]);
+
+            // Deklarasi Variabel Gabungan
+            $nik                = $request->old_nik;
+            $birth_date         = $request->old_birth_date;
+            $doctor             = $request->old_doctor;
+            $poli               = $request->old_poli;
+
+            // Validate registration_date must be less than 7 days
+            $registrationDateTime   = $request->old_registration_date.' '.$request->old_schedule;
+            $registrationTimestamp  = strtotime($registrationDateTime);
+            $currentTimestamp       = time();
+            $error                  = null;
+            
+            // Menghitung 7 hari yang akan datang
+            $sevenDaysAgoTimestamp = strtotime('7 days', $currentTimestamp);
+
+            // Validasi Tanggal Registrasi tidak boleh lebih dari 7 hari
+            if ($registrationTimestamp > $sevenDaysAgoTimestamp) {
+                $error['old_registration_date'] = 'Tanggal Registrasi tidak boleh lebih dari 7 hari.';
+            }
+
+            // Menghitung 5 jam 
+            $fiveHoursAgoTimestamp = strtotime('5 hours', $currentTimestamp);
+
+            // Validasi Tanggal Registrasi yang sama tidak boleh lebih dari 5 jam
+            if ($registrationTimestamp < $fiveHoursAgoTimestamp) {
+                $error['old_schedule'] = 'Jadwal Dokter tidak boleh kurang dari 5 jam di tanggal yang sama.';
+            }
+
+            // Validasi Tanggal Registrasi tidak boleh kurang dari jam saat ini
+            if ($registrationTimestamp < $currentTimestamp)
+            {
+                $error['old_schedule'] = 'Jadwal Dokter tidak boleh kurang dari jam saat ini.';
+            }
+
+            if ($error) return back()->withErrors($error)->withInput();
+
+            // Deklarasi Request ke API
+            $data = [
+                'mr_no'         => $request->mr_no,
+                'new_patient'   => $request->new_patient,
+            ];
+        }
+
+        $data += [
+            'nik'                   => $nik,
+            'birth_date'            => $birth_date,
+            'doctor'                => $doctor,
+            'poli'                  => $poli,
+            'registration_date'     => date('Y-m-d H:i:s', strtotime($registrationDateTime)),
+        ];
+
+        $response = AppHelper::api(env('API_URL').'book_schedule', 'POST', 'application/json', $data);
+
+        dd($data, json_decode($response));
+    }
+
     public function sitemap()
     {
         $sitemap = Sitemap::create(env('APP_URL_PRODUCTION'))

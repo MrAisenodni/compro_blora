@@ -19,9 +19,13 @@ class HomeController extends Controller
         return view('index', $data);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $slug)
     {
-        abort(503);
+        $data = $this->homeService->store($request, $slug);
+
+        // dd($data);
+        return back()->withInput();
+        // return redirect($data['c_menu']->url, $data);
     }
 
     public function page($slug)
