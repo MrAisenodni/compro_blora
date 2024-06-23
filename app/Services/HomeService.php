@@ -113,7 +113,7 @@ class HomeService
             $data = [
                 'full_name'     => $request->full_name,
                 'gender'        => $request->gender,
-                'new_patient'   => $request->new_patient,
+                'new_patient'   => (int)$request->new_patient,
             ];
         }
         else 
@@ -167,7 +167,7 @@ class HomeService
             // Deklarasi Request ke API
             $data = [
                 'mr_no'         => $request->mr_no,
-                'new_patient'   => $request->new_patient,
+                'new_patient'   => (int)$request->new_patient,
             ];
         }
 
@@ -176,12 +176,17 @@ class HomeService
             'birth_date'            => $birth_date,
             'doctor'                => $doctor,
             'poli'                  => $poli,
-            'registration_date'     => date('Y-m-d H:i:s', strtotime($registrationDateTime)),
+            'registration_date'     => (string) date('Y-m-d H:i:s', strtotime($registrationDateTime)),
         ];
+        $response = AppHelper::api(env('API_URL').'book_schedule', 'POST', 'application/json', json_encode($data));
 
-        $response = AppHelper::api(env('API_URL').'book_schedule', 'POST', 'application/json', $data);
+        // Cek kondisi response ketika ada error
+        if (json_decode($response)->response->error)
+        {
+            return back()->withErrors(json_decode($response)->response->error)->withInput();
+        }
 
-        dd($data, json_decode($response));
+        return back()->with('status', json_decode($response)->response->data->title);
     }
 
     public function sitemap()
