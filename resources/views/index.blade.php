@@ -25,8 +25,8 @@
                         <div class="contact__content">
                             <h2 class="contact__title">Keadaan Darurat</h2>
                             <p class="contact__desc">Jika Anda dalam keadaan darurat silahkan hubungi nomor di bawah ini:</p>
-                            <a href="https://api.whatsapp.com/send?phone=6285225116868" class="phone__number">
-                                <i class="icon-phone"></i> <span>6285225116868</span>
+                            <a href="https://api.whatsapp.com/send?phone=6285869467081" class="phone__number">
+                                <i class="icon-phone"></i> <span>(0296) 532 257 - 0858 6946 7081</span>
                             </a>
                         </div><!-- /.contact__content -->
                     </div><!-- /.contact-box -->
