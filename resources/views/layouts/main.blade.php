@@ -51,7 +51,7 @@
 								<p class="color-gray">
 									{!! $provider->description !!}
 								</p>
-								<a href="/jadwal-dokter" class="btn btn__primary btn__primary-style2 btn__link">
+								<a href="/kontak" class="btn btn__primary btn__primary-style2 btn__link">
 									<span>Booking Jadwal</span> <i class="icon-arrow-right"></i>
 								</a>
 							</div><!-- /.footer-widget__content -->

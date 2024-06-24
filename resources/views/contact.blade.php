@@ -44,6 +44,68 @@
     //   });
     // })
   </script>
+  @if (session('status'))
+    <script>
+      // JavaScript to show modal on page load
+      window.onload = function() {
+          var modal = document.getElementById("myModal");
+          modal.style.display = "block";
+      
+          var span1 = document.getElementById("close1");
+          span1.onclick = function() {
+              modal.style.display = "none";
+          }
+          var span2 = document.getElementById("close2");
+          span2.onclick = function() {
+              modal.style.display = "none";
+          }
+      
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+
+          const myModal = document.getElementById('myModal')
+          const myInput = document.getElementById('myInput')
+
+          myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+          })
+      }
+    </script>
+  @endif
+  @if (session('error'))
+    <script>
+      // JavaScript to show modal on page load
+      window.onload = function() {
+          var modal = document.getElementById("myModal");
+          modal.style.display = "block";
+      
+          var span1 = document.getElementById("close1");
+          span1.onclick = function() {
+              modal.style.display = "none";
+          }
+          var span2 = document.getElementById("close2");
+          span2.onclick = function() {
+              modal.style.display = "none";
+          }
+      
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+
+          const myModal = document.getElementById('myModal')
+          const myInput = document.getElementById('myInput')
+
+          myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+          })
+      }
+    </script>
+  @endif
 @endsection
 
 @section('content')
@@ -181,7 +243,7 @@
                                               <option value="">=== Pilih Poli ===</option>
                                               @if ($polis)
                                                   @foreach ($polis as $poli)
-                                                    <option value="{{ $poli->code }}">{{ $poli->name }}</option>
+                                                    <option value="{{ $poli->code }}" @if (old('new_poli') == $poli->code) selected @endif>{{ $poli->name }}</option>
                                                   @endforeach
                                               @endif
                                           </select>
@@ -197,7 +259,7 @@
                                               <option value="">=== Pilih Dokter ===</option>
                                               @if ($doctors)
                                                   @foreach ($doctors as $doctor)
-                                                    <option value="{{ $doctor->code }}">{{ $doctor->name }}</option>
+                                                    <option value="{{ $doctor->code }}" @if (old('new_doctor') == $doctor->code) selected @endif>{{ $doctor->name }}</option>
                                                   @endforeach
                                               @endif
                                           </select>
@@ -225,7 +287,7 @@
                                               <option value="">=== Pilih Jadwal ===</option>
                                               @if ($times)
                                                   @foreach ($times as $time)
-                                                      <option value="{{ $time->book_time }}">{{ date('H:i', strtotime($time->book_time)) }}</option>
+                                                      <option value="{{ $time->book_time }}" @if (old('new_schedule') == $time->book_time) selected @endif>{{ date('H:i', strtotime($time->book_time)) }}</option>
                                                   @endforeach
                                               @endif
                                           </select>
@@ -471,4 +533,39 @@
       </div><!-- /.row -->
     </div><!-- /.container -->
   </section><!-- /.gallery 2 -->
+
+  <!-- ========================
+    Modal Structure
+  =========================== -->
+  <div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            @if (session('status'))
+                Pendaftaran <span class="text-success">Berhasil</span>
+            @endif
+            @if (session('error'))
+                Pendaftaran <span class="text-danger">Gagal</span>
+            @endif
+          </h5>
+          <button type="button" class="btn-close close" id="close1">&times;</button>
+        </div>
+        <div class="modal-body">
+          @if (session('status'))
+            <b class="text-success bold">{{ session('status') }}</b><br>
+            <p>{{ session('data')->description }}</p>
+          @endif
+          @if (session('error'))
+              @foreach (session('error') as $item)
+                  <b class="text-danger">{{ $item->text }}</b><br>
+              @endforeach
+          @endif
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="close2">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection

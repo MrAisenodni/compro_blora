@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
         $data = $this->homeService->store($request, $slug);
 
-        return back()->withInput();
+        return $data;
     }
 
     public function page($slug)
