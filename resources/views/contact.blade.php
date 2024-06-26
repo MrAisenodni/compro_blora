@@ -11,39 +11,70 @@
   <script src="{{ asset('/js/select2/js/select2.full.min.js') }}"></script>
   <script src="{{ asset('/js/select2/select2-init.js') }}"></script>
   <script>
-    // $(document).ready(function() {
-    //   var api_url = '{!! env('API_URL'); !!}'
-    //   var x_token = '{!! env('X_TOKEN'); !!}'
+    // Hari dalam Seminggu
+    function getDayInteger(day)
+    {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-    //   $(".select2-ajax-doctor").select2({
-    //     ajax: {
-    //       url: api_url+'doctor',
-    //       dataType: 'json',
-    //       delay: 250,
-    //       headers: {
-    //           'x-token': x_token
-    //       },
-    //       data: function (params) {
-    //         return {
-    //           q: params.term
-    //         }
-    //       },
-    //       processResults: function (data) {
-    //           return {
-    //               results: data.map(function (item) {
-    //                   return {
-    //                       id: item.doctor_code,
-    //                       text: '('+item.poli_code+') '+item.doctor_name
-    //                   }
-    //               })
-    //           }
-    //       },
-    //       cache: true
-    //     },
-    //     placeholder: '=== Pilih Dokter ==='
-    //   });
-    // })
+      return days.indexOf(day)
+    }
+
+    // Mengambil data Poli berdasarkan Hari
+    function fetchPoliData(day)
+    {
+      const dayInteger = getDayInteger(day) + 1;
+      console.log(dayInteger)
+      const url = `{!! env('API_URL') !!}poli/${dayInteger}`
+      const token = `{!! env('X_TOKEN') !!}`
+
+      return $.ajax({
+        url: url,
+        dataType: 'json',
+        method: 'GET',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('x_token', token)
+        }
+      })
+    }
+
+    // Mengambil data Dokter berdasarkan Poli dan Hari
+    function fetchDoctorData(poliCode)
+    {
+      const url = `{!! env('API_URL') !!}doctor/${poliCode}`
+
+      return $.ajax({
+        url: url,
+        dataType: 'json'
+      })
+    }
+
+    $(document).ready(function() {
+      $('#new_registration_date').change(function() {
+        const selectedDate = new Date($(this).val());
+        const dayOfWeek = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        
+        // Ambil data Poli dari API
+        fetchPoliData(dayOfWeek).done(function(data) {
+          const poliOptions = data.response.data.map(function(item) {
+            return {
+              id: item.code,
+              text: item.name
+            }
+          })
+
+          // Tampilkan data Poli di select2
+          $('#new_poli').empty().select2({
+            data: poliOptions,
+            placeholder: '=== Pilih Poli ===',
+            allowClear: true
+          }).prop('disabled', false)
+
+          $('#new_doctor').empty().prop('disabled', true) // Reset Pilihan Dokter
+        })
+      })
+    })
   </script>
+
   @if (session('status'))
     <script>
       // JavaScript to show modal on page load
@@ -111,21 +142,6 @@
 @section('content')
   <h1 style="display: none">{{ $provider->title }}</h1>
   <div style="display: none">{{ $c_menu->description }}</div>
-
-  {{-- Tarik Data dari LAWU API Service --}}
-  @php
-    // Ambil Data Dokter
-    $response = AppHelper::api(env('API_URL').'doctor', 'GET', null, null);
-    $doctors = json_decode($response)->response->data;
-
-    // Ambil Data Poli
-    $response = AppHelper::api(env('API_URL').'poli', 'GET', null, null);
-    $polis = json_decode($response)->response->data;
-
-    // Ambil Data Jadwal Dokter
-    $response = AppHelper::api(env('API_URL').'doctor_time_input', 'GET', null, null);
-    $times = json_decode($response)->response->data;
-  @endphp
 
   <!-- ========================= 
           Google Map
@@ -236,66 +252,51 @@
                               <h4 class="contact-panel__title">Booking Dokter</h4>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row">
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                      <label class="form-label" for="new_poli">Poli <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <select class="form-control single-select @error('new_poli') is-invalid @enderror" id="new_poli" name="new_poli">
-                                              <option value="">=== Pilih Poli ===</option>
-                                              @if ($polis)
-                                                  @foreach ($polis as $poli)
-                                                    <option value="{{ $poli->code }}" @if (old('new_poli') == $poli->code) selected @endif>{{ $poli->name }}</option>
-                                                  @endforeach
-                                              @endif
-                                          </select>
-                                          @error('new_poli')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                      <label class="form-label" for="new_doctor">Dokter <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <select class="form-control single-select @error('new_doctor') is-invalid @enderror" id="new_doctor" name="new_doctor">
-                                              <option value="">=== Pilih Dokter ===</option>
-                                              @if ($doctors)
-                                                  @foreach ($doctors as $doctor)
-                                                    <option value="{{ $doctor->code }}" @if (old('new_doctor') == $doctor->code) selected @endif>{{ $doctor->name }}</option>
-                                                  @endforeach
-                                              @endif
-                                          </select>
-                                          @error('new_doctor')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <label class="form-label" for="new_registration_date">Tanggal Pendaftaran <span class="text-danger">*</span></label>
+                                    <div class="form-group form-group-date">
+                                        <i class="icon-calendar form-group-icon"></i>
+                                        <input type="date" class="form-control @error('new_registration_date') is-invalid @enderror" id="new_registration_date" name="new_registration_date" value="{{ old('new_registration_date') }}">
+                                        @error('new_registration_date')
+                                          <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="new_poli">Poli <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('new_poli') is-invalid @enderror" id="new_poli" name="new_poli" disabled>
+                                            <option value="">=== Pilih Poli ===</option>
+                                        </select>
+                                        @error('new_poli')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
                               </div>
                               <div class="row">
-                                  <div class="col-sm-12 col-md-12 col-lg-6">
-                                      <label class="form-label" for="new_registration_date">Tanggal Pendaftaran <span class="text-danger">*</span></label>
-                                      <div class="form-group form-group-date">
-                                          <i class="icon-calendar form-group-icon"></i>
-                                          <input type="date" class="form-control @error('new_registration_date') is-invalid @enderror" id="new_registration_date" name="new_registration_date" value="{{ old('new_registration_date') }}">
-                                          @error('new_registration_date')
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="new_doctor">Dokter <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('new_doctor') is-invalid @enderror" id="new_doctor" name="new_doctor" disabled>
+                                            <option value="">=== Pilih Dokter ===</option>
+                                        </select>
+                                        @error('new_doctor')
                                             <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                      <label class="form-label" for="new_schedule">Jadwal <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <select class="form-control single-select @error('new_schedule') is-invalid @enderror" id="new_schedule" name="new_schedule">
-                                              <option value="">=== Pilih Jadwal ===</option>
-                                              @if ($times)
-                                                  @foreach ($times as $time)
-                                                      <option value="{{ $time->book_time }}" @if (old('new_schedule') == $time->book_time) selected @endif>{{ date('H:i', strtotime($time->book_time)) }}</option>
-                                                  @endforeach
-                                              @endif
-                                          </select>
-                                          @error('new_schedule')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="new_schedule">Jadwal <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('new_schedule') is-invalid @enderror" id="new_schedule" name="new_schedule" disabled>
+                                            <option value="">=== Pilih Jadwal ===</option>
+                                        </select>
+                                        @error('new_schedule')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
                               </div>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row" style="margin-right: 0px">
@@ -350,66 +351,51 @@
                               <h4 class="contact-panel__title">Booking Dokter</h4>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row">
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                      <label class="form-label" for="old_poli">Poli <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <select class="form-control single-select @error('old_poli') is-invalid @enderror" id="old_poli" name="old_poli">
-                                              <option value="">=== Pilih Poli ===</option>
-                                              @if ($polis)
-                                                  @foreach ($polis as $poli)
-                                                    <option value="{{ $poli->code }}" @if(old('old_poli') == $poli->code) selected @endif>{{ $poli->name }}</option>
-                                                  @endforeach
-                                              @endif
-                                          </select>
-                                          @error('old_poli')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                      <label class="form-label" for="old_doctor">Dokter <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <select class="form-control single-select @error('old_doctor') is-invalid @enderror" id="old_doctor" name="old_doctor">
-                                              <option value="">=== Pilih Dokter ===</option>
-                                              @if ($doctors)
-                                                  @foreach ($doctors as $doctor)
-                                                    <option value="{{ $doctor->code }}" @if(old('old_doctor') == $doctor->code) selected @endif>{{ $doctor->name }}</option>
-                                                  @endforeach
-                                              @endif
-                                          </select>
-                                          @error('old_doctor')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <label class="form-label" for="old_registration_date">Tanggal Pendaftaran <span class="text-danger">*</span></label>
+                                    <div class="form-group form-group-date">
+                                        <i class="icon-calendar form-group-icon"></i>
+                                        <input type="date" class="form-control @error('old_registration_date') is-invalid @enderror" id="old_registration_date" name="old_registration_date" value="{{ old('old_registration_date') }}">
+                                        @error('old_registration_date')
+                                          <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="old_poli">Poli <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('old_poli') is-invalid @enderror" id="old_poli" name="old_poli">
+                                            <option value="">=== Pilih Poli ===</option>
+                                        </select>
+                                        @error('old_poli')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
                               </div>
                               <div class="row">
-                                  <div class="col-sm-12 col-md-12 col-lg-6">
-                                      <label class="form-label" for="old_registration_date">Tanggal Pendaftaran <span class="text-danger">*</span></label>
-                                      <div class="form-group form-group-date">
-                                          <i class="icon-calendar form-group-icon"></i>
-                                          <input type="date" class="form-control @error('old_registration_date') is-invalid @enderror" id="old_registration_date" name="old_registration_date" value="{{ old('old_registration_date') }}">
-                                          @error('old_registration_date')
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="old_doctor">Dokter <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('old_doctor') is-invalid @enderror" id="old_doctor" name="old_doctor">
+                                            <option value="">=== Pilih Dokter ===</option>
+                                        </select>
+                                        @error('old_doctor')
                                             <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                      <label class="form-label" for="old_schedule">Jadwal <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <select class="form-control single-select @error('old_schedule') is-invalid @enderror" id="old_schedule" name="old_schedule">
-                                              <option value="">=== Pilih Jadwal ===</option>
-                                              @if ($times)
-                                                  @foreach ($times as $time)
-                                                      <option value="{{ $time->book_time }}" @if(old('old_schedule') == $time->book_time) selected @endif>{{ date('H:i', strtotime($time->book_time)) }}</option>
-                                                  @endforeach
-                                              @endif
-                                          </select>
-                                          @error('old_schedule')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-6 -->
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="old_schedule">Jadwal <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('old_schedule') is-invalid @enderror" id="old_schedule" name="old_schedule">
+                                            <option value="">=== Pilih Jadwal ===</option>
+                                        </select>
+                                        @error('old_schedule')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
                               </div>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row" style="margin-right: 0px">
@@ -432,6 +418,7 @@
               </div>
               <div>
                 <ul class="contact__list list-unstyled mb-30">
+                  {{--
                   @php
                     $dayz = date('w', strtotime("+1 day", strtotime(now())));
                     $dayz = $dayz + 1;
@@ -449,8 +436,8 @@
                       <li>
                         <i class="icon-clock"></i><a href="/jadwal-dokter/{{ $schedules[$i]->doctor_code }}">{{ $schedules[$i]->doctor_name }} ({{ $schedules[$i]->poli_name }}): <b>{{ date('H:i', strtotime($schedules[$i]->start_time)) }}-{{ date('h:i', strtotime($schedules[$i]->end_time)) }}</b></a>
                       </li>
-                    @endfor --}}
-                  @endif
+                    @endfor 
+                  @endif --}}
                   <li>
                     <i class="icon-location"></i><a href="{{ $provider->maps }}">Lokasi: {{ $provider->address }}</a>
                   </li>

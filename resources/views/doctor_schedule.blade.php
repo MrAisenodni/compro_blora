@@ -34,6 +34,118 @@
   </section><!-- /.page-title -->
   
   <!-- ========================
+      Doctors Schedule
+  ========================== -->
+  <section style="padding-top: 50px; padding-bottom: 50px">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="doctors-timetable w-100">
+              <thead>
+                <tr>
+                  <th>Poliklinik</th>
+                  <th>Dokter</th>
+                  <th>Senin</th>
+                  <th>Selasa</th>
+                  <th>Rabu</th>
+                  <th>Kamis</th>
+                  <th>Jumat</th>
+                  <th>Sabtu</th>
+                  <th>Minggu</th>
+                </tr>
+              </thead>
+              <tbody>
+                @php
+                  $response = AppHelper::api(env('API_URL').'poli', 'GET', null, null);
+                  $polis    = json_decode($response)->response->data;
+                @endphp
+
+                @if ($polis)
+                    @foreach ($polis as $poli)
+                        @php
+                            $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$poli->code, 'GET', null, null);
+                            $doctors  = json_decode($response)->response->data;
+                        @endphp
+                        <tr>
+                          <td>
+                          {{-- <th rowspan="{{ count($doctors) }}"> --}}
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div>
+                          </td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                          <td>
+                            <div class="custom-td event">
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
+                              {{-- <div class="event__time">
+                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
+                              </div>
+                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                            </div></td>
+                        </tr>
+                    @endforeach
+                @endif
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========================
       Doctors Timetable
   ========================== -->
   <section style="padding-top: 50px; padding-bottom: 50px">
