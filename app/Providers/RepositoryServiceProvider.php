@@ -6,6 +6,7 @@ use App\Repositories\Managements\ContactInfo\{ ContactInfoRepository, ContactInf
 use App\Repositories\Managements\Slider\{ SliderRepository, SliderRepositoryInterface };
 use App\Repositories\Managements\Service\{ ServiceRepository, ServiceRepositoryInterface };
 use App\Repositories\Managements\ServiceDetail\{ ServiceDetailRepository, ServiceDetailRepositoryInterface };
+use App\Repositories\Masters\Doctor\{ DoctorRepository, DoctorRepositoryInterface };
 use App\Repositories\Masters\Template\{ TemplateRepository, TemplateRepositoryInterface };
 use App\Repositories\Settings\Menu\{ MenuRepository, MenuRepositoryInterface };
 use App\Repositories\Settings\Provider\{ ProviderRepository, ProviderRepositoryInterface };
@@ -27,6 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ServiceDetailRepositoryInterface::class, ServiceDetailRepository::class);
 
         // Master Repositories
+        $this->app->bind(DoctorRepositoryInterface::class, DoctorRepository::class);
         $this->app->bind(TemplateRepositoryInterface::class, TemplateRepository::class);
 
         // Setting Repositories

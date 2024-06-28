@@ -82,16 +82,6 @@
                 @if ($schedules)
                     @foreach ($schedules as $schedule)
                         <tr>
-                          {{-- <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $schedule->poli_code }}">{{ $schedule->poli_name }}</a>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/jadwal-dokter/{{ $schedule->doctor_code }}">{{ $schedule->doctor_name }}</a>
-                            </div>
-                          </td> --}}
                           <td>{{ $schedule->poli_name }}</td>
                           <td>{{ $schedule->doctor_name }}</td>
                           <td>{{ ($schedule->monday) ? $schedule->monday : '-' }}</td>
@@ -110,5 +100,70 @@
         </div>
       </div>
     </div>
+  </section>
+  
+  <!-- ========================
+      Doctor Grid
+  ========================== -->
+  <section class="team-layout3 pb-40">
+    <div class="bg-img"><img src="{{ asset('/storage/services/1_service_3.png') }}" alt="{{ $provider->title }}"></div>
+    <div class="container">
+      @php
+          $doctors = DB::table('mst_doctor')->paginate(6);
+      @endphp
+      <div class="row" id="doctor_list">
+        @if ($doctors)
+            @foreach ($doctors as $doctor)
+              <!-- Member #{{ $loop->iteration }} -->
+              <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="member">
+                  <div class="member__img">
+                    <img src="{{ asset('/storage/doctors/'.$doctor->picture) }}" alt="{{ $doctor->name }}">
+                  </div><!-- /.member-img -->
+                  <div class="member__info">
+                    <h5 class="member__name"><a href="/jadwal-dokter/{{ $doctor->code }}">{{ $doctor->name }}</a></h5>
+                    <p class="member__job">{{ $doctor->poli_name }}</p>
+                    <p class="member__desc">{{ $doctor->description }}</p>
+                    <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                      <a href="/jadwal-dokter/{{ $doctor->code }}" class="btn btn__secondary btn__link btn__rounded">
+                        <span>Read More</span>
+                        <i class="icon-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div><!-- /.member-info -->
+                </div><!-- /.member -->
+              </div><!-- /.col-lg-4 -->
+            @endforeach
+        @endif
+      </div> <!-- /.row -->
+      <div class="row">
+        <div class="col-12 text-center">
+          <nav class="pagination-area">
+            <ul class="pagination justify-content-center">
+              
+              <li>
+                <a class="@if ($doctors->currentPage() == 1) disabled @endif" href="@if ($doctors->currentPage() == 1) #doctor_list @else {{ $doctors->previousPageUrl() }} @endif">
+                  <i class="icon-arrow-left"></i>
+                </a>
+              </li>
+              @for ($i = 1; $i <= $doctors->lastPage(); $i++)
+                <li>
+                  <a class="@if ($doctors->currentPage() == $i) current @endif" href="{{ request()->url() }}?page={{ $i }}">{{ $i }}</a>
+                </li>
+              @endfor
+              <li>
+                  <a class="@if ($doctors->currentPage() == $doctors->lastPage()) disabled @endif" href="@if ($doctors->currentPage() == $doctors->lastPage()) #doctor_list @else {{ $doctors->nextPageUrl() }} @endif">
+                    <i class="icon-arrow-right"></i>
+                  </a>
+              </li>
+
+              {{-- <li><a class="current" href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#"><i class="icon-arrow-right"></i></a></li> --}}
+            </ul>
+          </nav><!-- .pagination-area -->
+        </div><!-- /.col-12 -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->
   </section>
 @endsection

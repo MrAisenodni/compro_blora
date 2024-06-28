@@ -7,6 +7,7 @@ use App\Repositories\Managements\ContactInfo\ContactInfoRepositoryInterface;
 use App\Repositories\Managements\Service\ServiceRepositoryInterface;
 use App\Repositories\Managements\ServiceDetail\ServiceDetailRepositoryInterface;
 use App\Repositories\Managements\Slider\SliderRepositoryInterface;
+use App\Repositories\Masters\Doctor\DoctorRepositoryInterface;
 use App\Repositories\Settings\Menu\MenuRepositoryInterface;
 use App\Repositories\Settings\Provider\ProviderRepositoryInterface;
 use Spatie\Sitemap\Sitemap;
@@ -17,10 +18,11 @@ class HomeService
     public function __construct(
         SliderRepositoryInterface $sliderRepository, MenuRepositoryInterface $menuRepository, 
         ContactInfoRepositoryInterface $contactInfoRepository, ServiceRepositoryInterface $serviceRepository,
-        ProviderRepositoryInterface $providerRepository
+        ProviderRepositoryInterface $providerRepository, DoctorRepositoryInterface $doctorRepository
     )
     {
         $this->contactInfoRepository    = $contactInfoRepository;
+        $this->doctorRepository         = $doctorRepository;
         $this->serviceRepository        = $serviceRepository;
         $this->sliderRepository         = $sliderRepository;
         $this->menuRepository           = $menuRepository;
@@ -53,6 +55,19 @@ class HomeService
             'contact_infos'     => $this->contactInfoRepository->getByCondition("id, title, subtitle, slug, description, icon", "menu_id = $menu->id", "order_no ASC"), 
             'services'          => $this->serviceRepository->getByCondition("id, title, subtitle, slug, description, icon, picture", "menu_id = $menu->id", "order_no ASC"), 
             'c_menu'            => $menu,
+        ];
+
+        return $data;
+    }
+
+    public function doctor($code)
+    {
+        $menu = $this->menuRepository->findBySlug('jadwal-dokter');
+
+        $data = [
+            'provider'          => $this->providerRepository->findData(),
+            'c_menu'            => $menu,
+            'doctor'            => $this->doctorRepository->findByCode($code),
         ];
 
         return $data;

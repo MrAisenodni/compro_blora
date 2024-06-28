@@ -33,6 +33,13 @@ class HomeController extends Controller
         return view($data['c_menu']->route, $data);
     }
 
+    public function doctor($code)
+    {
+        $data = $this->homeService->doctor($code);
+
+        return view('doctor_schedule_detail', $data);
+    }
+
     public function sitemap()
     {
         return $this->homeService->sitemap();

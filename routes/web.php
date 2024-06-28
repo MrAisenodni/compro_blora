@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/{slug}', [HomeController::class, 'page']);
 Route::post('/{slug}', [HomeController::class, 'store']);
+Route::get('/jadwal-dokter/{code}', [HomeController::class, 'doctor']);
 
 /*
 |||||||||||||||||||||||||||||||||||
