@@ -23,7 +23,6 @@
     function fetchPoliData(day)
     {
       const dayInteger = getDayInteger(day) + 1;
-      console.log(dayInteger)
       const url = `{!! env('API_URL') !!}poli/${dayInteger}`
       const token = `{!! env('X_TOKEN') !!}`
 
@@ -37,21 +36,128 @@
       })
     }
 
-    // Mengambil data Dokter berdasarkan Poli dan Hari
-    function fetchDoctorData(poliCode)
+    // Mengambil data Dokter berdasarkan Hari dan Poli
+    function fetchDoctorData(day, poli)
     {
-      const url = `{!! env('API_URL') !!}doctor/${poliCode}`
+      const dayInteger = getDayInteger(day) + 1
+      const poliCode = poli
+      const url = `{!! env('API_URL') !!}doctor/${dayInteger}/${poliCode}`
+      const token = `{!! env('X_TOKEN') !!}`
 
       return $.ajax({
         url: url,
-        dataType: 'json'
+        dataType: 'json',
+        method: 'GET',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('x_token', token)
+        }
       })
     }
 
+    // Mengambil data Jadwal Dokter berdasarkan Hari, Poli, dan Dokter
+    function fetchDoctorScheduleData(day, poli, doctor)
+    {
+      const dayInteger  = getDayInteger(day) + 1
+      const poliCode    = poli
+      const doctorCode  = doctor
+      const url         = `{!! env('API_URL') !!}doctor_schedule/${dayInteger}/${poliCode}/${doctorCode}`
+      const token       = `{!! env('X_TOKEN') !!}`
+
+      return $.ajax({
+        url: url,
+        dataType: 'json',
+        method: 'GET',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('x_token', token)
+        }
+      })
+    }
+
+    // Bagian untuk Pendaftaran Pasien Lama
+    $(document).ready(function() {
+      $('#old_registration_date').change(function() {
+        const selectedDate  = new Date($(this).val());
+        const dayOfWeek     = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        
+        // Ambil data Poli dari API
+        fetchPoliData(dayOfWeek).done(function(data) {
+          const poliOptions = data.response.data.map(function(item) {
+            return {
+              id: item.code,
+              text: item.name
+            }
+          })
+
+          // Tampilkan data Poli di select2
+          $('#old_poli').empty().select2({
+            data: poliOptions,
+            placeholder: '=== Pilih Poli ===',
+            allowClear: true
+          }).val(null).trigger('change').prop('disabled', false)
+
+          $('#old_doctor').empty().prop('disabled', true) // Reset Pilihan Dokter
+          $('#old_schedule').empty().prop('disabled', true) // Reset Pilihan Jadwal Dokter
+        })
+      })
+
+      $('#old_poli').change(function() {
+        const selectedDate  = new Date($('#old_registration_date').val());
+        const dayOfWeek     = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        const selectedPoli  = $(this).val()
+
+        // Ambil data Dokter dari API
+        fetchDoctorData(dayOfWeek, selectedPoli).done(function(data) {
+          const doctorOptions = data.response.data.map(function(item) {
+            return {
+              id: item.code,
+              text: item.name
+            }
+          })
+
+          // Tampilkan data Dokter di select2
+          $('#old_doctor').empty().select2({
+            data: doctorOptions,
+            placeholder: '=== Pilih Dokter ===',
+            allowClear: true
+          }).val(null).trigger('change').prop('disabled', false)
+
+          $('#old_schedule').empty().prop('disabled', true) // Reset Pilihan Jadwal Dokter
+        })
+      })
+
+      $('#old_doctor').change(function() {
+        const selectedDate    = new Date($('#old_registration_date').val());
+        const dayOfWeek       = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        const selectedPoli    = $('#old_poli').val()
+        const selectedDoctor  = $(this).val()
+
+        // Ambil data Jadwal Dokter dari API
+        fetchDoctorScheduleData(dayOfWeek, selectedPoli, selectedDoctor).done(function(data) {
+          const doctorOptions = data.response.data.map(function(item) {
+            const timeParts = item.start_time.split(':')
+            const formattedTime = `${timeParts[0]}:${timeParts[1]}`
+
+            return {
+              id: item.start_time,
+              text: formattedTime
+            }
+          })
+
+          // Tampilkan data Jadwal Dokter di select2
+          $('#old_schedule').empty().select2({
+            data: doctorOptions,
+            placeholder: '=== Pilih Jadwal Dokter ===',
+            allowClear: true
+          }).val(null).trigger('change').prop('disabled', false)
+        })
+      })
+    })
+
+    // Bagian untuk Pendaftaran Pasien Baru
     $(document).ready(function() {
       $('#new_registration_date').change(function() {
-        const selectedDate = new Date($(this).val());
-        const dayOfWeek = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        const selectedDate  = new Date($(this).val());
+        const dayOfWeek     = selectedDate.toLocaleString('en-us', { weekday: 'long' })
         
         // Ambil data Poli dari API
         fetchPoliData(dayOfWeek).done(function(data) {
@@ -67,12 +173,89 @@
             data: poliOptions,
             placeholder: '=== Pilih Poli ===',
             allowClear: true
-          }).prop('disabled', false)
+          }).val(null).trigger('change').prop('disabled', false)
 
           $('#new_doctor').empty().prop('disabled', true) // Reset Pilihan Dokter
+          $('#new_schedule').empty().prop('disabled', true) // Reset Pilihan Jadwal Dokter
+        })
+      })
+
+      $('#new_poli').change(function() {
+        const selectedDate  = new Date($('#new_registration_date').val());
+        const dayOfWeek     = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        const selectedPoli  = $(this).val()
+
+        // Ambil data Dokter dari API
+        fetchDoctorData(dayOfWeek, selectedPoli).done(function(data) {
+          const doctorOptions = data.response.data.map(function(item) {
+            return {
+              id: item.code,
+              text: item.name
+            }
+          })
+
+          // Tampilkan data Dokter di select2
+          $('#new_doctor').empty().select2({
+            data: doctorOptions,
+            placeholder: '=== Pilih Dokter ===',
+            allowClear: true
+          }).val(null).trigger('change').prop('disabled', false)
+
+          $('#new_schedule').empty().prop('disabled', true) // Reset Pilihan Jadwal Dokter
+        })
+      })
+
+      $('#new_doctor').change(function() {
+        const selectedDate    = new Date($('#new_registration_date').val());
+        const dayOfWeek       = selectedDate.toLocaleString('en-us', { weekday: 'long' })
+        const selectedPoli    = $('#new_poli').val()
+        const selectedDoctor  = $(this).val()
+
+        // Ambil data Jadwal Dokter dari API
+        fetchDoctorScheduleData(dayOfWeek, selectedPoli, selectedDoctor).done(function(data) {
+          const doctorOptions = data.response.data.map(function(item) {
+            const timeParts = item.start_time.split(':')
+            const formattedTime = `${timeParts[0]}:${timeParts[1]}`
+
+            return {
+              id: item.start_time,
+              text: formattedTime
+            }
+          })
+
+          // Tampilkan data Jadwal Dokter di select2
+          $('#new_schedule').empty().select2({
+            data: doctorOptions,
+            placeholder: '=== Pilih Jadwal Dokter ===',
+            allowClear: true
+          }).val(null).trigger('change').prop('disabled', false)
         })
       })
     })
+    
+    // Inputan Tanggal Registrasi hanya bisa dipilih hari ini s/d 7 hari ke depan
+    document.addEventListener('DOMContentLoaded', () => {
+      const newDateInput = document.getElementById('new_registration_date');
+      const oldDateInput = document.getElementById('old_registration_date');
+      const today = new Date();
+      const maxDate = new Date();
+
+      // Set the maxDate to 7 days from today
+      maxDate.setDate(today.getDate() + 7);
+
+      // Format the dates to yyyy-mm-dd
+      const formatDate = (date) => {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${year}-${month}-${day}`;
+      };
+
+      newDateInput.min = formatDate(today);
+      newDateInput.max = formatDate(maxDate);
+      oldDateInput.min = formatDate(today);
+      oldDateInput.max = formatDate(maxDate);
+    });
   </script>
 
   @if (session('status'))
@@ -364,7 +547,7 @@
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <label class="form-label" for="old_poli">Poli <span class="text-danger">*</span></label>
                                     <div class="form-group">
-                                        <select class="form-control single-select @error('old_poli') is-invalid @enderror" id="old_poli" name="old_poli">
+                                        <select class="form-control single-select @error('old_poli') is-invalid @enderror" id="old_poli" name="old_poli" disabled>
                                             <option value="">=== Pilih Poli ===</option>
                                         </select>
                                         @error('old_poli')
@@ -377,7 +560,7 @@
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <label class="form-label" for="old_doctor">Dokter <span class="text-danger">*</span></label>
                                     <div class="form-group">
-                                        <select class="form-control single-select @error('old_doctor') is-invalid @enderror" id="old_doctor" name="old_doctor">
+                                        <select class="form-control single-select @error('old_doctor') is-invalid @enderror" id="old_doctor" name="old_doctor" disabled>
                                             <option value="">=== Pilih Dokter ===</option>
                                         </select>
                                         @error('old_doctor')
@@ -388,7 +571,7 @@
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <label class="form-label" for="old_schedule">Jadwal <span class="text-danger">*</span></label>
                                     <div class="form-group">
-                                        <select class="form-control single-select @error('old_schedule') is-invalid @enderror" id="old_schedule" name="old_schedule">
+                                        <select class="form-control single-select @error('old_schedule') is-invalid @enderror" id="old_schedule" name="old_schedule" disabled>
                                             <option value="">=== Pilih Jadwal ===</option>
                                         </select>
                                         @error('old_schedule')

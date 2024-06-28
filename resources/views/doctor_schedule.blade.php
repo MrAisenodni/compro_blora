@@ -44,96 +44,63 @@
             <table class="doctors-timetable w-100">
               <thead>
                 <tr>
-                  <th>Poliklinik</th>
-                  <th>Dokter</th>
-                  <th>Senin</th>
-                  <th>Selasa</th>
-                  <th>Rabu</th>
-                  <th>Kamis</th>
-                  <th>Jumat</th>
-                  <th>Sabtu</th>
-                  <th>Minggu</th>
+                  <th>
+                    <div class="custom-th event">Poliklinik</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Dokter</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Senin</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Selasa</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Rabu</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Kamis</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Jumat</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Sabtu</div>
+                  </th>
+                  <th>
+                    <div class="custom-th event">Minggu</div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 @php
-                  $response = AppHelper::api(env('API_URL').'poli', 'GET', null, null);
-                  $polis    = json_decode($response)->response->data;
+                  $response   = AppHelper::api(env('API_URL').'doctor_schedule', 'GET', null, null);
+                  $schedules  = json_decode($response)->response->data;
                 @endphp
 
-                @if ($polis)
-                    @foreach ($polis as $poli)
-                        @php
-                            $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$poli->code, 'GET', null, null);
-                            $doctors  = json_decode($response)->response->data;
-                        @endphp
+                @if ($schedules)
+                    @foreach ($schedules as $schedule)
                         <tr>
-                          <td>
-                          {{-- <th rowspan="{{ count($doctors) }}"> --}}
+                          {{-- <td>
                             <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
+                              <a class="event__header" href="/fasilitas-pelayanan/{{ $schedule->poli_code }}">{{ $schedule->poli_name }}</a>
                             </div>
                           </td>
                           <td>
                             <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
-                          <td>
-                            <div class="custom-td event">
-                              <a class="event__header" href="/fasilitas-pelayanan/{{ $poli->code }}">{{ $poli->name }}</a>
-                              {{-- <div class="event__time">
-                                <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                              </div>
-                              <div class="doctor__name">{{ $schedule->doctor_name }}</div> --}}
-                            </div></td>
+                              <a class="event__header" href="/jadwal-dokter/{{ $schedule->doctor_code }}">{{ $schedule->doctor_name }}</a>
+                            </div>
+                          </td> --}}
+                          <td>{{ $schedule->poli_name }}</td>
+                          <td>{{ $schedule->doctor_name }}</td>
+                          <td>{{ ($schedule->monday) ? $schedule->monday : '-' }}</td>
+                          <td>{{ ($schedule->tuesday) ? $schedule->tuesday : '-' }}</td>
+                          <td>{{ ($schedule->wednesday) ? $schedule->wednesday : '-' }}</td>
+                          <td>{{ ($schedule->thursday) ? $schedule->thursday : '-' }}</td>
+                          <td>{{ ($schedule->friday) ? $schedule->friday : '-' }}</td>
+                          <td>{{ ($schedule->saturday) ? $schedule->saturday : '-' }}</td>
+                          <td>{{ ($schedule->sunday) ? $schedule->sunday : '-' }}</td>
                         </tr>
                     @endforeach
                 @endif
@@ -144,71 +111,4 @@
       </div>
     </div>
   </section>
-  
-  <!-- ========================
-      Doctors Timetable
-  ========================== -->
-  <section style="padding-top: 50px; padding-bottom: 50px">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table class="doctors-timetable w-100">
-              <thead>
-                <tr>
-                  <th></th>
-                  @for ($i = 0; $i < 7; $i++)
-                    @php
-                      $date = date('d M Y', strtotime("+$i day", strtotime(now())));
-                      $dayz = date('w', strtotime("+$i day", strtotime(now())));
-                    @endphp
-                    <th>{{ $date }}<br>{{ AppHelper::indo_day($dayz) }}</th>
-                  @endfor
-                </tr>
-              </thead>
-              <tbody>
-                @php
-                  $response = AppHelper::api(env('API_URL').'doctor_time', 'GET', null, null);
-                  $data = json_decode($response)->response->data;
-                @endphp
-
-                @if ($data)
-                    @foreach ($data as $item)
-                        <tr>
-                          <td>
-                            {{ $item->range_time }}
-                          </td>
-                          
-                          @for ($i = 0; $i < 7; $i++)
-                            @php
-                              $dayz = date('w', strtotime("+$i day", strtotime(now())));
-                              $dayz = $dayz + 1;
-                              $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$dayz, 'GET', null, null);
-                              $schedules = json_decode($response)->response->data;
-                            @endphp
-
-                            <td>
-                              @if ($schedules)
-                                @foreach ($schedules as $schedule)
-                                  <div class="custom-td event">
-                                    <a class="event__header" href="/jadwal_dokter/{{ $schedule->doctor_code }}">{{ $schedule->poli_name }}</a>
-                                    <div class="event__time">
-                                      <span>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</span>
-                                    </div>
-                                    <div class="doctor__name">{{ $schedule->doctor_name }}</div>
-                                  </div>
-                                @endforeach
-                              @endif                                  
-                            </td>  
-                          @endfor=
-                        </tr>
-                    @endforeach
-                @endif
-              </tbody>
-            </table>
-          </div>
-        </div><!-- /.col-12 -->
-      </div><!-- /.row -->
-    </div><!-- /.container -->
-  </section><!-- /.Doctors Timetable  -->
 @endsection

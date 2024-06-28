@@ -6869,7 +6869,8 @@ textarea.form-control {
   border: 3px solid #ffffff;
 }
 .doctors-timetable thead {
-  background-color: #def8f6 !important;
+  /* background-color: #def8f6 !important; */
+  background-color: #ffffff !important;
 }
 .doctors-timetable tbody tr:nth-of-type(even) td:first-of-type {
   min-width: 80px;
