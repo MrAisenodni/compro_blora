@@ -31,7 +31,7 @@
         dataType: 'json',
         method: 'GET',
         beforeSend: function(xhr) {
-          xhr.setRequestHeader('x_token', token)
+          xhr.setRequestHeader('x-token', token)
         }
       })
     }
@@ -49,7 +49,7 @@
         dataType: 'json',
         method: 'GET',
         beforeSend: function(xhr) {
-          xhr.setRequestHeader('x_token', token)
+          xhr.setRequestHeader('x-token', token)
         }
       })
     }
@@ -68,7 +68,7 @@
         dataType: 'json',
         method: 'GET',
         beforeSend: function(xhr) {
-          xhr.setRequestHeader('x_token', token)
+          xhr.setRequestHeader('x-token', token)
         }
       })
     }
@@ -232,7 +232,7 @@
         })
       })
     })
-    
+
     // Inputan Tanggal Registrasi hanya bisa dipilih hari ini s/d 7 hari ke depan
     document.addEventListener('DOMContentLoaded', () => {
       const newDateInput = document.getElementById('new_registration_date');
