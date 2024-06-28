@@ -41,7 +41,7 @@
                         </ul>
                     </li>`;
             @elseif ($menu->is_parent == 0 && $menu->parent_id == 0 && $menu->is_shown == 1)
-                container.innerHTML += `<li class="nav__item"><a href="{{ ($menu->url) ? $menu->url : '/' }}" class="nav__item-link @if ($c_menu->url == $menu->url) active @endif">{{ $menu->title }}</a></li>`;
+                container.innerHTML += `<li class="nav__item"><a href="{{ ($menu->url) ? '/'.$menu->url : '/' }}" class="nav__item-link @if ($c_menu->url == $menu->url) active @endif">{{ $menu->title }}</a></li>`;
             @elseif ($menu->is_parent == 1 && $menu->parent_id <> 0 && $menu->is_shown == 1)
                 container.innerHTML += `<li class="nav__item has-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle nav__item-link">{{ $menu->title }}</a>
@@ -49,7 +49,7 @@
                         </ul>
                     </li>`;
             @elseif ($menu->is_parent == 0 && $menu->parent_id <> 0 && $menu->is_shown == 1)
-                container.innerHTML += `<li class="nav__item"><a href="{{ ($menu->url) ? $menu->url : '/' }}" class="nav__item-link @if ($c_menu->url == $menu->url) active @endif">{{ $menu->title }}</a></li>`;
+                container.innerHTML += `<li class="nav__item"><a href="{{ ($menu->url) ? '/'.$menu->url : '/' }}" class="nav__item-link @if ($c_menu->url == $menu->url) active @endif">{{ $menu->title }}</a></li>`;
             @endif
         @endforeach
     @endif
