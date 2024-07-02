@@ -10,6 +10,7 @@ use App\Repositories\Managements\Slider\SliderRepositoryInterface;
 use App\Repositories\Masters\Doctor\DoctorRepositoryInterface;
 use App\Repositories\Settings\Menu\MenuRepositoryInterface;
 use App\Repositories\Settings\Provider\ProviderRepositoryInterface;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -215,5 +216,24 @@ class HomeService
             ->writeToFile(public_path('sitemap.xml'));
 
         return $sitemap->render();
+    }
+
+    public function generatePdf($request)
+    {
+        // Data yang akan dikirim ke view PDF
+        $pdfData = [
+            'title'     => 'RS PKU MUHAMMADIYAH BLORA<br>Jl. Raya Blora Km 3 Jepon - Seso<br>Telp. (0296) 532 257 / 525 634', 
+            'data'      => $request,
+        ];
+
+        // Ukuran kertas dalam inci (16 cm x 20 cm)
+        $width  = 16 * 28.3465;  // 16 cm to points
+        $height = 20 * 28.3465; // 20 cm to points
+
+        // Buat PDF dengan ukuran kertas kustom dan orientasi portrait
+        $pdf = Pdf::loadView('print', $pdfData)->setPaper([0, 0, $width, $height], 'portrait');
+
+        // Mengirim PDF langsung ke browser
+        return $pdf->stream($request->registration_no.'_'.$request->mr_no.'.pdf');
     }
 }

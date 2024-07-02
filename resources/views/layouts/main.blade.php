@@ -8,6 +8,7 @@
 	<meta name="keywords" content="RS PKU Muhammadiyah Blora">
 	<meta property="title" content="Rumah Sakit PKU Muhammadiyah Blora | Company Profile">
 	<meta name="google-site-verification" content="lgFUyLnFtcZtoBln3oT45vvZiu0_6bIBRTIYXT1tnSM" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="description" content="@yield('meta-description')">
 	<link href="{{ asset('/storage/'.$provider->logo) }}" rel="icon">
 	<title>@yield('title') | {{ $provider->title }}</title>

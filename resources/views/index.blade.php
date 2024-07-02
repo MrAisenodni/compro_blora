@@ -62,4 +62,36 @@
     @includeif('templates.about_2', ['contents' => null])
     @includeIf('templates.service_1', ['contents' => $services])
     @includeIf('templates.work_process', ['contents' => null])
+
+    <!-- ========================
+        gallery
+    =========================== -->
+    <section class="gallery pt-0 pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="slick-carousel" data-slick='{"slidesToShow": 4, "slidesToScroll": 1, "autoplay": true, "arrows": true, "dots": false, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 2}}, {"breakpoint": 767, "settings": {"slidesToShow": 2}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'>
+                        <a class="popup-gallery-item" href="{{ asset('/storage/galleries/1.jpg') }}">
+                            <img src="{{ asset('/storage/galleries/1.jpg') }}" alt="{{ $provider->title }}">
+                        </a>
+                        <a class="popup-gallery-item" href="{{ asset('/storage/galleries/2.jpg') }}">
+                            <img src="{{ asset('/storage/galleries/2.jpg') }}" alt="{{ $provider->title }}">
+                        </a>
+                        <a class="popup-gallery-item" href="{{ asset('/storage/galleries/3.jpg') }}">
+                            <img src="{{ asset('/storage/galleries/3.jpg') }}" alt="{{ $provider->title }}">
+                        </a>
+                        <a class="popup-gallery-item" href="{{ asset('/storage/galleries/4.jpg') }}">
+                            <img src="{{ asset('/storage/galleries/4.jpg') }}" alt="{{ $provider->title }}">
+                        </a>
+                        <a class="popup-gallery-item" href="{{ asset('/storage/galleries/5.jpg') }}">
+                            <img src="{{ asset('/storage/galleries/5.jpg') }}" alt="{{ $provider->title }}">
+                        </a>
+                        <a class="popup-gallery-item" href="{{ asset('/storage/galleries/6.jpg') }}">
+                            <img src="{{ asset('/storage/galleries/6.jpg') }}" alt="{{ $provider->title }}">
+                        </a>
+                    </div><!-- /.gallery-images-wrapper -->
+                </div><!-- /.col-xl-5 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.gallery 2 -->
 @endsection

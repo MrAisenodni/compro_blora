@@ -260,35 +260,55 @@
 
   @if (session('status'))
     <script>
-      // JavaScript to show modal on page load
-      window.onload = function() {
-          var modal = document.getElementById("myModal");
-          modal.style.display = "block";
-      
-          var span1 = document.getElementById("close1");
-          span1.onclick = function() {
-              modal.style.display = "none";
-          }
-          var span2 = document.getElementById("close2");
-          span2.onclick = function() {
-              modal.style.display = "none";
-          }
-      
-          window.onclick = function(event) {
-              if (event.target == modal) {
-                  modal.style.display = "none";
-              }
-          }
+      function openPDF() {
+            var data = {
+                registration_no: "{!! session('data')->registration_no !!}",
+                registration_date: "{!! date('d M Y', strtotime(session('data')->registration_date)) !!}",
+                order_no: "{!! session('data')->order_no !!}",
+                mr_no: "{!! session('data')->mr_no !!}",
+                full_name: "{!! session('data')->full_name !!}",
+                birth_date: "{!! session('data')->birth_date !!}",
+                nik: "{!! session('data')->nik !!}",
+                doctor_code: "{!! session('data')->doctor_code !!}",
+                doctor_name: "{!! session('data')->doctor_name !!}",
+                poli_code: "{!! session('data')->poli_code !!}",
+                poli_name: "{!! session('data')->poli_name !!}",
+                description: "{!! session('data')->description !!}",
+            };
 
-          const myModal = document.getElementById('myModal')
-          const myInput = document.getElementById('myInput')
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "{!! $c_menu->url !!}/cetakan");
+            form.setAttribute("target", "_blank");
 
-          myModal.addEventListener('shown.bs.modal', () => {
-            myInput.focus()
-          })
-      }
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            var csrfInput = document.createElement("input");
+            csrfInput.setAttribute("type", "hidden");
+            csrfInput.setAttribute("name", "_token");
+            csrfInput.setAttribute("value", csrfToken);
+            form.appendChild(csrfInput);
+
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", data[key]);
+                    form.appendChild(hiddenField);
+                }
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+        window.onload = function() {
+            openPDF();
+        }
     </script>
   @endif
+
   @if (session('error'))
     <script>
       // JavaScript to show modal on page load
@@ -681,22 +701,22 @@
           <div class="slick-carousel"
             data-slick='{"slidesToShow": 4, "slidesToScroll": 1, "autoplay": true, "arrows": true, "dots": false, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 2}}, {"breakpoint": 767, "settings": {"slidesToShow": 2}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'>
             <a class="popup-gallery-item" href="{{ asset('/storage/galleries/1.jpg') }}">
-              <img src="{{ asset('/storage/galleries/1.jpg') }}" alt="gallery img">
+              <img src="{{ asset('/storage/galleries/1.jpg') }}" alt="{{ $provider->title }}">
             </a>
             <a class="popup-gallery-item" href="{{ asset('/storage/galleries/2.jpg') }}">
-              <img src="{{ asset('/storage/galleries/2.jpg') }}" alt="gallery img">
+              <img src="{{ asset('/storage/galleries/2.jpg') }}" alt="{{ $provider->title }}">
             </a>
             <a class="popup-gallery-item" href="{{ asset('/storage/galleries/3.jpg') }}">
-              <img src="{{ asset('/storage/galleries/3.jpg') }}" alt="gallery img">
+              <img src="{{ asset('/storage/galleries/3.jpg') }}" alt="{{ $provider->title }}">
             </a>
             <a class="popup-gallery-item" href="{{ asset('/storage/galleries/4.jpg') }}">
-              <img src="{{ asset('/storage/galleries/4.jpg') }}" alt="gallery img">
+              <img src="{{ asset('/storage/galleries/4.jpg') }}" alt="{{ $provider->title }}">
             </a>
             <a class="popup-gallery-item" href="{{ asset('/storage/galleries/5.jpg') }}">
-              <img src="{{ asset('/storage/galleries/5.jpg') }}" alt="gallery img">
+              <img src="{{ asset('/storage/galleries/5.jpg') }}" alt="{{ $provider->title }}">
             </a>
             <a class="popup-gallery-item" href="{{ asset('/storage/galleries/6.jpg') }}">
-              <img src="{{ asset('/storage/galleries/6.jpg') }}" alt="gallery img">
+              <img src="{{ asset('/storage/galleries/6.jpg') }}" alt="{{ $provider->title }}">
             </a>
           </div><!-- /.gallery-images-wrapper -->
         </div><!-- /.col-xl-5 -->

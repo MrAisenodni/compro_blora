@@ -40,6 +40,13 @@ class HomeController extends Controller
         return view('doctor_schedule_detail', $data);
     }
 
+    public function generatePdf(Request $request)
+    {
+        $data = $this->homeService->generatePdf($request);
+        
+        return $data;
+    }
+
     public function sitemap()
     {
         return $this->homeService->sitemap();
