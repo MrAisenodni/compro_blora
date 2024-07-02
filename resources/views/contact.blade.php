@@ -621,11 +621,11 @@
               </div>
               <div>
                 <ul class="contact__list list-unstyled mb-30">
-                  {{--
+                  
                   @php
                     $dayz = date('w', strtotime("+1 day", strtotime(now())));
                     $dayz = $dayz + 1;
-                    $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$dayz, 'GET', null, null);
+                    $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$dayz.'/day', 'GET', null, null);
                     $schedules = json_decode($response)->response->data;
                   @endphp
 
@@ -635,12 +635,7 @@
                         <i class="icon-clock"></i><a href="/jadwal-dokter/{{ $schedule->doctor_code }}">{{ $schedule->doctor_name }} ({{ $schedule->poli_name }}): <b>{{ date('H:i', strtotime($schedule->start_time)) }}-{{ date('h:i', strtotime($schedule->end_time)) }}</b></a>
                       </li>
                     @endforeach
-                    {{-- @for ($i = 0; $i < 10; $i++)
-                      <li>
-                        <i class="icon-clock"></i><a href="/jadwal-dokter/{{ $schedules[$i]->doctor_code }}">{{ $schedules[$i]->doctor_name }} ({{ $schedules[$i]->poli_name }}): <b>{{ date('H:i', strtotime($schedules[$i]->start_time)) }}-{{ date('h:i', strtotime($schedules[$i]->end_time)) }}</b></a>
-                      </li>
-                    @endfor 
-                  @endif --}}
+                  @endif
                   <li>
                     <i class="icon-location"></i><a href="{{ $provider->maps }}">Lokasi: {{ $provider->address }}</a>
                   </li>
