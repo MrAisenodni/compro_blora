@@ -22,6 +22,10 @@
         margin-left: 20px;
       }
 
+      .text-danger {
+        color: red;
+      }
+
       /* Text Alignment */
       .text-left {
         text-align: left;
@@ -39,7 +43,9 @@
       }
     </style>
 </head>
-<body>
+<body> 
+  <h3 class="text-center text-danger">JANGAN LUPA DIUNDUH ATAU SCREENSHOT</h3>
+
   <h1 class="text-center">{!! $title !!}</h1><hr class="mb-2">
 
   <table class="mb-2">
@@ -80,7 +86,7 @@
     <tr>
       <th class="text-left">Status</th>
       <th class="text-left">:</th>
-      <td>UMUM</td>
+      <td>{{ $data->assurance_name }}</td>
       <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
     </tr>
     <tr>

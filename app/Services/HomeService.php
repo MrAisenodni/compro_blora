@@ -85,6 +85,7 @@ class HomeService
                 'new_birth_date'        => 'required',
                 'new_doctor'            => 'required',
                 'new_schedule'          => 'required',
+                'new_assurance'         => 'required',
                 'new_registration_date' => 'required|after_or_equal:'.date('Y-m-d', strtotime(now())),
                 'new_poli'              => 'required',
             ]);
@@ -94,6 +95,7 @@ class HomeService
             $birth_date         = $request->new_birth_date;
             $doctor             = $request->new_doctor;
             $poli               = $request->new_poli;
+            $assurance          = $request->new_assurance;
 
             // Validate registration_date must be less than 7 days
             $registrationDateTime   = $request->new_registration_date.' '.$request->new_schedule;
@@ -136,10 +138,11 @@ class HomeService
         {
             $validated = $request->validate([
                 'mr_no'                 => 'required',
-                'old_nik'               => 'required|min:16|max:16',
-                'old_birth_date'        => 'required',
+                // 'old_nik'               => 'required|min:16|max:16',
+                // 'old_birth_date'        => 'required',
                 'old_doctor'            => 'required',
                 'old_schedule'          => 'required',
+                'old_assurance'         => 'required',
                 'old_registration_date' => 'required|after_or_equal:'.date('Y-m-d', strtotime(now())),
                 'old_poli'              => 'required',
             ]);
@@ -149,6 +152,7 @@ class HomeService
             $birth_date         = $request->old_birth_date;
             $doctor             = $request->old_doctor;
             $poli               = $request->old_poli;
+            $assurance          = $request->old_assurance;
 
             // Validate registration_date must be less than 7 days
             $registrationDateTime   = $request->old_registration_date.' '.$request->old_schedule;
@@ -183,6 +187,7 @@ class HomeService
             // Deklarasi Request ke API
             $data = [
                 'mr_no'         => $request->mr_no,
+                'full_name'     => $request->old_full_name,
                 'new_patient'   => (int) $request->new_patient,
             ];
         }
@@ -192,6 +197,7 @@ class HomeService
             'birth_date'            => $birth_date,
             'doctor_code'           => $doctor,
             'poli_code'             => $poli,
+            'assurance_code'        => $assurance,
             'registration_date'     => (string) date('Y-m-d H:i:s', strtotime($registrationDateTime)),
         ];
         $response = AppHelper::api(env('API_URL').'book_schedule', 'POST', 'application/json', json_encode($data));

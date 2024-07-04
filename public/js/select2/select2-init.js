@@ -7,7 +7,9 @@
     $(".single-select").select2();
 
     // multi select box
-    $('.multi-select').select2();
+    $('.multi-select').select2({
+        minimumInputLength: 3,
+    });
 
     // dropdown option groups
     $('.dropdown-groups').select2();

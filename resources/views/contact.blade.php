@@ -75,6 +75,37 @@
 
     // Bagian untuk Pendaftaran Pasien Lama
     $(document).ready(function() {
+      // Fungsi untuk mencari Pasien
+      $('#mr_no').change(function() {
+        var term = $(this).val()
+        if (term.length >= 1) {
+          $.ajax({
+            url: `{!! env('API_URL') !!}patient/` + term,
+            type: 'GET', 
+            dataType: 'json',
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader('x-token', `{!! env('X_TOKEN') !!}`)
+            },
+            success: function (data) {
+              var data = data.response.data
+              console.log(data)
+              var formattedDate = data.birth_date.split(' ')[0]; // Memotong bagian waktu dari tanggal
+
+              $('#old_full_name').val(data.full_name).removeClass('text-danger');
+              $('#old_nik').val(data.nik).removeClass('text-danger');
+              $('#old_birth_date').val(formattedDate);
+            },
+            error: function (data) {
+              var data = data.responseJSON.response.error[0]
+              console.log(data)
+
+              $('#old_full_name').val(data.title).addClass('text-danger');
+              $('#old_nik').val(data.title).addClass('text-danger');
+            }
+          })
+        }
+      })
+
       $('#old_registration_date').change(function() {
         const selectedDate  = new Date($(this).val());
         const dayOfWeek     = selectedDate.toLocaleString('en-us', { weekday: 'long' })
@@ -95,8 +126,8 @@
             allowClear: true
           }).val(null).trigger('change').prop('disabled', false)
 
-          $('#old_doctor').empty().prop('disabled', true) // Reset Pilihan Dokter
-          $('#old_schedule').empty().prop('disabled', true) // Reset Pilihan Jadwal Dokter
+          $('#old_doctor').prop('disabled', true) // Reset Pilihan Dokter
+          $('#old_schedule').prop('disabled', true) // Reset Pilihan Jadwal Dokter
         })
       })
 
@@ -273,6 +304,8 @@
                 doctor_name: "{!! session('data')->doctor_name !!}",
                 poli_code: "{!! session('data')->poli_code !!}",
                 poli_name: "{!! session('data')->poli_name !!}",
+                assurance_code: "{!! session('data')->assurance_code !!}",
+                assurance_name: "{!! session('data')->assurance_name !!}",
                 description: "{!! session('data')->description !!}",
             };
 
@@ -345,6 +378,14 @@
 @section('content')
   <h1 style="display: none">{{ $provider->title }}</h1>
   <div style="display: none">{{ $c_menu->description }}</div>
+
+  @php
+    $response = AppHelper::api(env('API_URL').'assurance', 'GET', null, null);
+    if ($response)
+    {
+      $assurances = json_decode($response)->response->data;
+    }
+  @endphp
 
   <!-- ========================= 
           Google Map
@@ -478,7 +519,7 @@
                                 </div><!-- /.col-lg-6 -->
                               </div>
                               <div class="row">
-                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="col-sm-12 col-md-5 col-lg-5">
                                     <label class="form-label" for="new_doctor">Dokter <span class="text-danger">*</span></label>
                                     <div class="form-group">
                                         <select class="form-control single-select @error('new_doctor') is-invalid @enderror" id="new_doctor" name="new_doctor" disabled>
@@ -488,8 +529,8 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div><!-- /.col-lg-6 -->
-                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                </div><!-- /.col-lg-5 -->
+                                <div class="col-sm-12 col-md-3 col-lg-3">
                                     <label class="form-label" for="new_schedule">Jadwal <span class="text-danger">*</span></label>
                                     <div class="form-group">
                                         <select class="form-control single-select @error('new_schedule') is-invalid @enderror" id="new_schedule" name="new_schedule" disabled>
@@ -499,7 +540,23 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div><!-- /.col-lg-6 -->
+                                </div><!-- /.col-lg-3 -->
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <label class="form-label" for="new_assurance">Jaminan <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('new_assurance') is-invalid @enderror" id="new_assurance" name="new_assurance">
+                                            <option value="">=== Pilih Jaminan ===</option>
+                                            @if ($assurances)
+                                                @foreach ($assurances as $assurance)
+                                                    <option value="{{ $assurance->code }}" @if(old('new_assurance') ==  $assurance->code) selected @endif>{{ $assurance->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('new_assurance')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-4 -->
                               </div>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row" style="margin-right: 0px">
@@ -520,36 +577,48 @@
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <input type="hidden" name="new_patient" value="0">
                               <div class="row">
-                                  <div class="col-sm-12 col-md-12 col-lg-4">
-                                      <label class="form-label" for="mr_no">No RM <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <i class="icon-news form-group-icon"></i>
-                                          <input type="text" class="form-control @error('mr_no') is-invalid @enderror" placeholder="No RM" id="mr_no" name="mr_no" value="{{ old('mr_no') }}">
-                                          @error('mr_no')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
+                                  <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <label class="form-label" for="mr_no">No RM <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <i class="icon-news form-group-icon"></i>
+                                        <input type="text" class="form-control @error('mr_no') is-invalid @enderror" placeholder="No RM" id="mr_no" name="mr_no" value="{{ old('mr_no') }}">
+                                        @error('mr_no')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                   </div><!-- /.col-lg-4 -->
-                                  <div class="col-sm-12 col-md-12 col-lg-4">
-                                      <label class="form-label" for="old_nik">NIK <span class="text-danger">*</span></label>
-                                      <div class="form-group">
-                                          <i class="icon-news form-group-icon"></i>
-                                          <input type="text" class="form-control @error('old_nik') is-invalid @enderror" placeholder="NIK" id="old_nik" name="old_nik" value="{{ old('old_nik') }}">
-                                          @error('old_nik')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-4 -->
-                                  <div class="col-sm-12 col-md-12 col-lg-4">
-                                      <label class="form-label" for="old_birth_date">Tanggal Lahir <span class="text-danger">*</span></label>
-                                      <div class="form-group form-group-date">
-                                          <i class="icon-calendar form-group-icon"></i>
-                                          <input type="date" class="form-control @error('old_birth_date') is-invalid @enderror" id="old_birth_date" name="old_birth_date" value="{{ old('old_birth_date') }}">
-                                          @error('old_birth_date')
-                                              <div class="text-danger">{{ $message }}</div>
-                                          @enderror
-                                      </div>
-                                  </div><!-- /.col-lg-4 -->
+                                  <div class="col-sm-12 col-md-8 col-lg-8">
+                                    <label class="form-label" for="old_full_name">Nama Lengkap <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <i class="icon-news form-group-icon"></i>
+                                        <input type="text" class="form-control @error('old_full_name') is-invalid @enderror" id="old_full_name" name="old_full_name" value="{{ old('old_full_name') }}" readonly>
+                                        @error('old_full_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-8 -->
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="old_nik">NIK <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <i class="icon-news form-group-icon"></i>
+                                        <input type="text" class="form-control @error('old_nik') is-invalid @enderror" id="old_nik" name="old_nik" value="{{ old('old_nik') }}" readonly>
+                                        @error('old_nik')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label class="form-label" for="old_birth_date">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <div class="form-group form-group-date">
+                                        <i class="icon-calendar form-group-icon"></i>
+                                        <input type="date" class="form-control @error('old_birth_date') is-invalid @enderror" id="old_birth_date" name="old_birth_date" value="{{ old('old_birth_date') }}" readonly>
+                                        @error('old_birth_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
                               </div>
                               <h4 class="contact-panel__title">Booking Dokter</h4>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
@@ -577,7 +646,7 @@
                                 </div><!-- /.col-lg-6 -->
                               </div>
                               <div class="row">
-                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="col-sm-12 col-md-5 col-lg-5">
                                     <label class="form-label" for="old_doctor">Dokter <span class="text-danger">*</span></label>
                                     <div class="form-group">
                                         <select class="form-control single-select @error('old_doctor') is-invalid @enderror" id="old_doctor" name="old_doctor" disabled>
@@ -587,8 +656,8 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div><!-- /.col-lg-6 -->
-                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                </div><!-- /.col-lg-5 -->
+                                <div class="col-sm-12 col-md-3 col-lg-3">
                                     <label class="form-label" for="old_schedule">Jadwal <span class="text-danger">*</span></label>
                                     <div class="form-group">
                                         <select class="form-control single-select @error('old_schedule') is-invalid @enderror" id="old_schedule" name="old_schedule" disabled>
@@ -598,7 +667,23 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div><!-- /.col-lg-6 -->
+                                </div><!-- /.col-lg-3 -->
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <label class="form-label" for="old_assurance">Jaminan <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <select class="form-control single-select @error('old_assurance') is-invalid @enderror" id="old_assurance" name="old_assurance">
+                                            <option value="">=== Pilih Jaminan ===</option>
+                                            @if ($assurances)
+                                                @foreach ($assurances as $assurance)
+                                                    <option value="{{ $assurance->code }}" @if(old('old_assurance') ==  $assurance->code) selected @endif>{{ $assurance->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('old_assurance')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div><!-- /.col-lg-4 -->
                               </div>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row" style="margin-right: 0px">
