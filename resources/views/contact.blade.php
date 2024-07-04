@@ -711,7 +711,10 @@
                     $dayz = date('w', strtotime("+1 day", strtotime(now())));
                     $dayz = $dayz + 1;
                     $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$dayz.'/day', 'GET', null, null);
-                    $schedules = json_decode($response)->response->data;
+                    if ($response)
+                    {
+                      $schedules = json_decode($response)->response->data;
+                    }
                   @endphp
 
                   @if ($schedules)

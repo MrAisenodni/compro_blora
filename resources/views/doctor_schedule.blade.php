@@ -76,7 +76,10 @@
               <tbody>
                 @php
                   $response   = AppHelper::api(env('API_URL').'doctor_schedule', 'GET', null, null);
-                  $schedules  = json_decode($response)->response->data;
+                  if ($response)
+                  {
+                    $schedules  = json_decode($response)->response->data;
+                  }
                 @endphp
 
                 @if ($schedules)
