@@ -312,7 +312,7 @@
             var form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("action", "{!! $c_menu->url !!}/cetakan");
-            form.setAttribute("target", "_blank");
+            form.setAttribute("target", "pdfFrame");
 
             var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             var csrfInput = document.createElement("input");
@@ -332,7 +332,9 @@
             }
 
             document.body.appendChild(form);
-            form.submit();
+
+            var newWindow = window.open('', 'pdfFrame'); 
+            form.submit(); // form will be submitted to newWindow's content
             document.body.removeChild(form);
         }
 
