@@ -711,7 +711,7 @@
                   
                   @php
                     $dayz = date('w', strtotime("+1 day", strtotime(now())));
-                    $dayz = $dayz + 1;
+                    $dayz = $dayz;
                     $response = AppHelper::api(env('API_URL').'doctor_schedule/'.$dayz.'/day', 'GET', null, null);
                     if ($response)
                     {
