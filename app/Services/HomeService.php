@@ -130,6 +130,8 @@ class HomeService
             // Deklarasi Request ke API
             $data = [
                 'patient_name'  => $request->full_name,
+                'bpjs_no'       => $request->new_bpjs_no,
+                'address'       => $request->address,
                 'gender'        => $request->gender,
                 'new_patient'   => (int) $request->new_patient,
             ];
@@ -188,6 +190,7 @@ class HomeService
             $data = [
                 'mr_no'         => $request->mr_no,
                 'full_name'     => $request->old_full_name,
+                'bpjs_no'       => $request->old_bpjs_no,
                 'new_patient'   => (int) $request->new_patient,
             ];
         }

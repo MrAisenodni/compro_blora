@@ -91,6 +91,7 @@
               console.log(data)
               var formattedDate = data.birth_date.split(' ')[0]; // Memotong bagian waktu dari tanggal
 
+              $('#old_bpjs_no').val(data.bpjs_no);
               $('#old_full_name').val(data.full_name).removeClass('text-danger');
               $('#old_nik').val(data.nik).removeClass('text-danger');
               $('#old_birth_date').val(formattedDate);
@@ -473,7 +474,17 @@
                                   </div><!-- /.col-lg-4 -->
                               </div>
                               <div class="row">
-                                  <div class="col-sm-12 col-md-12 col-lg-6">
+                                  <div class="col-sm-12 col-md-12 col-lg-4">
+                                      <label class="form-label" for="new_bpjs_no">No Kartu BPJS</label>
+                                      <div class="form-group">
+                                          <i class="icon-news form-group-icon"></i>
+                                          <input type="text" class="form-control @error('new_bpjs_no') is-invalid @enderror" placeholder="No Kartu BPJS" id="new_bpjs_no" name="new_bpjs_no" value="{{ old('new_bpjs_no') }}">
+                                          @error('new_bpjs_no')
+                                            <div class="text-danger">{{ $message }}</div>
+                                          @enderror
+                                      </div>
+                                  </div><!-- /.col-lg-4 -->
+                                  <div class="col-sm-12 col-md-12 col-lg-4">
                                       <label class="form-label" for="email">Email</label>
                                       <div class="form-group">
                                           <i class="icon-email form-group-icon"></i>
@@ -482,8 +493,8 @@
                                             <div class="text-danger">{{ $message }}</div>
                                           @enderror
                                       </div>
-                                  </div><!-- /.col-lg-6 -->
-                                  <div class="col-sm-12 col-md-12 col-lg-6">
+                                  </div><!-- /.col-lg-4 -->
+                                  <div class="col-sm-12 col-md-12 col-lg-4">
                                       <label class="form-label" for="phone_no">No HP</label>
                                       <div class="form-group">
                                           <i class="icon-phone form-group-icon"></i>
@@ -492,9 +503,18 @@
                                             <div class="text-danger">{{ $message }}</div>
                                           @enderror
                                       </div>
-                                  </div><!-- /.col-lg-6 -->
+                                  </div><!-- /.col-lg-4 -->
                               </div>
-                              <h4 class="contact-panel__title">Booking Dokter</h4>
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-12 col-lg-12">
+                                      <label class="form-label" for="address">Alamat</label>
+                                      <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" cols="30" rows="5" placeholder="Alamat">{{ old('address') }}</textarea>
+                                      @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                      @enderror
+                                  </div><!-- /.col-lg-12 -->
+                              </div>
+                              <h4 class="contact-panel__title mt-4">Booking Dokter</h4>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
                               <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-6">
@@ -600,17 +620,27 @@
                                 </div><!-- /.col-lg-8 -->
                               </div>
                               <div class="row">
-                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                    <label class="form-label" for="old_nik">NIK <span class="text-danger">*</span></label>
-                                    <div class="form-group">
-                                        <i class="icon-news form-group-icon"></i>
-                                        <input type="text" class="form-control @error('old_nik') is-invalid @enderror" id="old_nik" name="old_nik" value="{{ old('old_nik') }}" readonly>
-                                        @error('old_nik')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div><!-- /.col-lg-6 -->
-                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                  <label class="form-label" for="old_bpjs_no">No Kartu BPJS</label>
+                                  <div class="form-group">
+                                      <i class="icon-news form-group-icon"></i>
+                                      <input type="text" class="form-control @error('old_bpjs_no') is-invalid @enderror" id="old_bpjs_no" name="old_bpjs_no" value="{{ old('old_bpjs_no') }}" readonly>
+                                      @error('old_bpjs_no')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
+                                  </div>
+                                </div><!-- /.col-lg-4 -->
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                  <label class="form-label" for="old_nik">NIK <span class="text-danger">*</span></label>
+                                  <div class="form-group">
+                                      <i class="icon-news form-group-icon"></i>
+                                      <input type="text" class="form-control @error('old_nik') is-invalid @enderror" id="old_nik" name="old_nik" value="{{ old('old_nik') }}" readonly>
+                                      @error('old_nik')
+                                          <div class="text-danger">{{ $message }}</div>
+                                      @enderror
+                                  </div>
+                                </div><!-- /.col-lg-4 -->
+                                <div class="col-sm-12 col-md-4 col-lg-4">
                                     <label class="form-label" for="old_birth_date">Tanggal Lahir <span class="text-danger">*</span></label>
                                     <div class="form-group form-group-date">
                                         <i class="icon-calendar form-group-icon"></i>
@@ -619,7 +649,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div><!-- /.col-lg-6 -->
+                                </div><!-- /.col-lg-4 -->
                               </div>
                               <h4 class="contact-panel__title">Booking Dokter</h4>
                               <hr style="margin-top: -10px; border: 1px solid; margin-bottom: 10px">
