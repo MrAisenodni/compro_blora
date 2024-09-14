@@ -132,6 +132,10 @@ class HomeService
                 'patient_name'  => $request->full_name,
                 'bpjs_no'       => $request->new_bpjs_no,
                 'address'       => $request->address,
+                'birth_date'    => $request->birth_date,
+                'birth_place'   => $request->birth_place,
+                'phone_no'      => $request->phone_no,
+                'email'         => $request->email,
                 'gender'        => $request->gender,
                 'new_patient'   => (int) $request->new_patient,
             ];
