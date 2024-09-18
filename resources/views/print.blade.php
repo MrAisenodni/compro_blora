@@ -104,13 +104,13 @@
     <tr>
       <th class="text-left">Tgl Periksa</th>
       <th class="text-left">:</th>
-      <td>{{ date('d M Y', strtotime($data->registration_date)) }}</td>
+      <td>{{ $data->registration_date }}</td>
       <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
     </tr>
     <tr>
       <th class="text-left">Jam Periksa</th>
       <th class="text-left">:</th>
-      <td>{{ date('h:i', strtotime($data->registration_date)) }}</td>
+      <td>{{ $data->registration_time }}</td>
       <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
     </tr>
   </table>

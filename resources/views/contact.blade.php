@@ -296,6 +296,7 @@
             var data = {
                 registration_no: "{!! session('data')->registration_no !!}",
                 registration_date: "{!! date('d M Y', strtotime(session('data')->registration_date)) !!}",
+                registration_time: "{!! session('data')->registration_time !!}",
                 order_no: "{!! session('data')->order_no !!}",
                 mr_no: "{!! session('data')->mr_no !!}",
                 full_name: "{!! session('data')->full_name !!}",
