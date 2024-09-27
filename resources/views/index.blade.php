@@ -17,7 +17,7 @@
     <section class="contact-info py-0">
         <div class="container">
             <div class="row row-no-gutter boxes-wrapper">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-4">
                     <div class="contact-box d-flex">
                         <div class="contact__icon">
                             <i class="icon-call3"></i>
@@ -30,8 +30,8 @@
                             </a>
                         </div><!-- /.contact__content -->
                     </div><!-- /.contact-box -->
-                </div><!-- /.col-md-6 -->
-                <div class="col-sm-12 col-md-6">
+                </div><!-- /.col-md-4 -->
+                <div class="col-sm-12 col-md-4">
                     <div class="contact-box d-flex">
                         <div class="contact__icon">
                             <i class="icon-health-report"></i>
@@ -44,7 +44,21 @@
                             </a>
                         </div><!-- /.contact__content -->
                     </div><!-- /.contact-box -->
-                </div><!-- /.col-md-6 -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-sm-12 col-md-4">
+                    <div class="contact-box d-flex">
+                        <div class="contact__icon">
+                            <img src="https://play-lh.googleusercontent.com/BlrmGYzr7rNTFMYLyNnk7RF2e8EpkY5aCI9kbXnhUZz9cZKW1vj9_ODLdTe3vDUy_Cg" alt="mobile-jkn" style="width: 75%">
+                        </div><!-- /.contact__icon -->
+                        <div class="contact__content">
+                            <h2 class="contact__title">Mobile JKN</h2>
+                            <p class="contact__desc">Unduk App Mobile JKN</p>
+                            <a href="https://play.google.com/store/apps/details?id=app.bpjs.mobile" class="btn btn__white btn__rounded" style="height: 30px">
+                                <span>Download</span>
+                            </a>
+                        </div><!-- /.contact__content -->
+                    </div><!-- /.contact-box -->
+                </div><!-- /.col-md-4 -->
             </div><!-- /.row -->
         </div><!-- /.container -->
     </section>
