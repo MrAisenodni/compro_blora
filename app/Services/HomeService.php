@@ -83,7 +83,6 @@ class HomeService
                 'full_name'             => 'required|min:3',
                 'gender'                => 'required',
                 'birth_place'           => 'required',
-                'email'                 => 'required',
                 'phone_no'              => 'required',
                 'address'               => 'required',
                 'new_birth_date'        => 'required',

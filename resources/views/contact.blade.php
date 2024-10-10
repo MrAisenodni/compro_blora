@@ -464,7 +464,7 @@
                                       </div>
                                   </div><!-- /.col-lg-4 -->
                                   <div class="col-sm-12 col-md-12 col-lg-4">
-                                      <label class="form-label" for="birth_place">Tempat Lahir</label>
+                                      <label class="form-label" for="birth_place">Tempat Lahir <span class="text-danger">*</span></label>
                                       <div class="form-group">
                                           <i class="icon-location form-group-icon"></i>
                                           <input type="text" class="form-control @error('birth_place') is-invalid @enderror" placeholder="Tempat Lahir" id="birth_place" name="birth_place" value="{{ old('birth_place') }}">
@@ -496,7 +496,7 @@
                                       </div>
                                   </div><!-- /.col-lg-4 -->
                                   <div class="col-sm-12 col-md-12 col-lg-4">
-                                      <label class="form-label" for="phone_no">No HP</label>
+                                      <label class="form-label" for="phone_no">No HP <span class="text-danger">*</span></label>
                                       <div class="form-group">
                                           <i class="icon-phone form-group-icon"></i>
                                           <input type="text" class="form-control @error('phone_no') is-invalid @enderror" placeholder="No HP" id="phone_no" name="phone_no" value="{{ old('phone_no') }}">
@@ -508,7 +508,7 @@
                               </div>
                               <div class="row">
                                   <div class="col-sm-12 col-md-12 col-lg-12">
-                                      <label class="form-label" for="address">Alamat</label>
+                                      <label class="form-label" for="address">Alamat <span class="text-danger">*</span></label>
                                       <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" cols="30" rows="5" placeholder="Alamat">{{ old('address') }}</textarea>
                                       @error('address')
                                         <div class="text-danger">{{ $message }}</div>
