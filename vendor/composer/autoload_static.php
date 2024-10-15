@@ -139,6 +139,10 @@ class ComposerStaticInitc61ff82cbf0142a401a48a8161e1595a
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
         ),
+        'J' => 
+        array (
+            'JeroenZwart\\CsvSeeder\\' => 22,
+        ),
         'I' => 
         array (
             'Intervention\\Image\\' => 19,
@@ -472,6 +476,10 @@ class ComposerStaticInitc61ff82cbf0142a401a48a8161e1595a
         'Laravel\\Sail\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
+        ),
+        'JeroenZwart\\CsvSeeder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jeroenzwart/laravel-csv-seeder/src',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -3037,6 +3045,10 @@ class ComposerStaticInitc61ff82cbf0142a401a48a8161e1595a
         'Intervention\\Image\\Point' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Point.php',
         'Intervention\\Image\\Response' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Response.php',
         'Intervention\\Image\\Size' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Size.php',
+        'JeroenZwart\\CsvSeeder\\CsvHeaderParser' => __DIR__ . '/..' . '/jeroenzwart/laravel-csv-seeder/src/CsvHeaderParser.php',
+        'JeroenZwart\\CsvSeeder\\CsvRowParser' => __DIR__ . '/..' . '/jeroenzwart/laravel-csv-seeder/src/CsvRowParser.php',
+        'JeroenZwart\\CsvSeeder\\CsvSeeder' => __DIR__ . '/..' . '/jeroenzwart/laravel-csv-seeder/src/CsvSeeder.php',
+        'JeroenZwart\\CsvSeeder\\CsvSeederServiceProvider' => __DIR__ . '/..' . '/jeroenzwart/laravel-csv-seeder/src/CsvSeederServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Laravel\\Sail\\Console\\AddCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/AddCommand.php',
         'Laravel\\Sail\\Console\\Concerns\\InteractsWithDockerComposeServices' => __DIR__ . '/..' . '/laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php',

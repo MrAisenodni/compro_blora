@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e2344ea7b75515f7b7ece8634350e5adb62b8461',
+        'reference' => '3478c95610ee28450ac7af59e628aa43777fcded',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -415,6 +415,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'jeroenzwart/laravel-csv-seeder' => array(
+            'pretty_version' => 'v1.6.3',
+            'version' => '1.6.3.0',
+            'reference' => '8c3aa44517d835893b0a7afcddeeeff1ce62262d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jeroenzwart/laravel-csv-seeder',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -433,7 +442,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e2344ea7b75515f7b7ece8634350e5adb62b8461',
+            'reference' => '3478c95610ee28450ac7af59e628aa43777fcded',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
