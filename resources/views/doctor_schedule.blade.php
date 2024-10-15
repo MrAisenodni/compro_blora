@@ -75,7 +75,7 @@
               </thead>
               <tbody>
                 @php
-                  $response   = AppHelper::api(env('API_URL').'doctor_schedule', 'GET', null, null);
+                  $response   = AppHelper::api(env('API_URL').'doctor_schedule/exclude/by/poli/9118', 'GET', null, null);
                   if ($response)
                   {
                     $schedules  = json_decode($response)->response->data;
@@ -121,7 +121,7 @@
               <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="member">
                   <div class="member__img">
-                    <img src="{{ asset('/storage/doctors/'.$doctor->picture) }}" alt="{{ $doctor->name }}">
+                    <img src="{{ ($doctor->picture) ? asset('/storage/doctors/'.$doctor->picture) : asset('/images/team/1.jpg') }}" alt="{{ $doctor->name }}">
                   </div><!-- /.member-img -->
                   <div class="member__info">
                     <h5 class="member__name"><a href="/jadwal-dokter/{{ $doctor->code }}">{{ $doctor->name }}</a></h5>
