@@ -81,6 +81,7 @@
 												<li><a href="{{ $menu->url }}" data-id="{{ $menu->id }}">{{ $menu->title }}</a></li>
 											@endforeach
 										@endif
+										<li><a href="{{ env('APP_URL') }}/privacy">Kebijakan dan Privasi</a></li>
 									</ul>
 								</nav>
 							</div><!-- /.footer-widget__content -->
@@ -133,7 +134,6 @@
 	</div><!-- /.wrapper -->
 
 	<script src="{{ asset('/js/jquery-3.5.1.min.js') }}"></script>
-	{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 	@yield('scripts')
 	<script src="{{ asset('/js/plugins.js') }}"></script>
 	<script src="{{ asset('/js/main.js') }}"></script>

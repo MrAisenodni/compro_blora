@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         // Fungsi untuk menampilkan Data pada Navbar
         view()->composer('layouts.navbar', function($view) {
             $data = [
-                'menus'         => Menu::select('id', 'title', 'icon', 'url', 'is_parent', 'is_shown', 'parent_id')->whereRaw("disabled = 0 AND is_login = 0 AND is_shown = 1")->orderBy('order_no')->get(),
+                'menus'         => Menu::select('id', 'title', 'icon', 'url', 'is_parent', 'is_shown', 'parent_id')->whereRaw("disabled = 0 AND is_login = 0 AND is_shown = 1 AND url <> 'privacy'")->orderBy('order_no')->get(),
             ];
 
             $view->with($data);
@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         // Fungsi untuk menampilkan Data pada Main Template
         view()->composer('layouts.main', function($view) {
             $data = [
-                'menus'         => Menu::select('id', 'title',  'url')->whereRaw("disabled = 0 AND parent_id = 0 AND is_parent = 0 AND is_login = 0 AND is_shown = 1")->orderBy('order_no')->get(),
+                'menus'         => Menu::select('id', 'title',  'url')->whereRaw("disabled = 0 AND parent_id = 0 AND is_parent = 0 AND is_login = 0 AND is_shown = 1 AND url <> 'privacy'")->orderBy('order_no')->get(),
                 'provider'      => Provider::select('id', 'title', 'description', 'birth_place', 'birth_date', 'address', 'province', 'city', 'district', 'village', 'maps', 'phone_no', 'home_no', 'office_no', 'logo', 'logo_header', 'logo_footer')->where('disabled', 0)->first(),
                 'services'      => ServiceDetail::select('id', 'title', 'slug')->where('disabled', 0)->orderBy('order_no')->paginate(5),
                 'sosmeds'       => SocialMedia::select('id', 'title', 'icon', 'url')->where('disabled', 0)->orderBy('order_no')->get(),
