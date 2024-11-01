@@ -81,7 +81,7 @@
 												<li><a href="{{ $menu->url }}" data-id="{{ $menu->id }}">{{ $menu->title }}</a></li>
 											@endforeach
 										@endif
-										<li><a href="{{ env('APP_URL') }}/privacy">Kebijakan dan Privasi</a></li>
+										<li><a href="{{ env('APP_URL') }}privacy">Kebijakan dan Privasi</a></li>
 									</ul>
 								</nav>
 							</div><!-- /.footer-widget__content -->
