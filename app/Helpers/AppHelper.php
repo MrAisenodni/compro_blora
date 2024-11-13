@@ -38,11 +38,20 @@ class AppHelper {
                 'Content-Type: '.$contentType,
                 'x-token: '.env('X_TOKEN')
             ),
+            CURLOPT_SSL_VERIFYHOST  => 0,
+            CURLOPT_SSL_VERIFYPEER  => 0,
         ));
 
         $response = curl_exec($curl);
-        curl_close($curl);
 
+        // Check for curl errors
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+            curl_close($curl);
+            return response()->json(['error' => $error_msg], 500);
+        }
+
+        curl_close($curl);
         return $response;
     }
 }
