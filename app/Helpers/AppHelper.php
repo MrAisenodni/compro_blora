@@ -32,14 +32,15 @@ class AppHelper {
             CURLOPT_TIMEOUT         => 0,
             CURLOPT_FOLLOWLOCATION  => true,
             CURLOPT_HTTP_VERSION    => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYHOST  => 0,
+            CURLOPT_SSL_VERIFYPEER  => 0,
             CURLOPT_CUSTOMREQUEST   => $method,
             CURLOPT_POSTFIELDS      => $data,
             CURLOPT_HTTPHEADER      => array(
                 'Content-Type: '.$contentType,
-                'x-token: '.env('X_TOKEN')
+                'x-token: '.env('X_TOKEN'),
+                'Content-Security-Policy: upgrade-insecure-requests'
             ),
-            CURLOPT_SSL_VERIFYHOST  => 0,
-            CURLOPT_SSL_VERIFYPEER  => 0,
         ));
 
         $response = curl_exec($curl);

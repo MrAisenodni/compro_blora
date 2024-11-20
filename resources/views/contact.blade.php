@@ -23,7 +23,8 @@
     function fetchPoliData(day)
     {
       const dayInteger = getDayInteger(day) + 1;
-      const url = `{!! env('API_URL') !!}poli/${dayInteger}`
+      const url = `/proxy/poli/${dayInteger}`;
+      // const url = `{!! env('API_URL') !!}poli/${dayInteger}`
       const token = `{!! env('X_TOKEN') !!}`
 
       return $.ajax({
@@ -41,7 +42,8 @@
     {
       const dayInteger = getDayInteger(day) + 1
       const poliCode = poli
-      const url = `{!! env('API_URL') !!}doctor/${dayInteger}/${poliCode}`
+      const url = `/proxy/doctor/${dayInteger}/${poliCode}`;
+      // const url = `{!! env('API_URL') !!}doctor/${dayInteger}/${poliCode}`
       const token = `{!! env('X_TOKEN') !!}`
 
       return $.ajax({
@@ -60,7 +62,8 @@
       const dayInteger  = getDayInteger(day) + 1
       const poliCode    = poli
       const doctorCode  = doctor
-      const url         = `{!! env('API_URL') !!}doctor_schedule/${dayInteger}/${poliCode}/${doctorCode}`
+      const url         = `/proxy/doctor_schedule/${dayInteger}/${poliCode}/${doctorCode}`;
+      // const url         = `{!! env('API_URL') !!}doctor_schedule/${dayInteger}/${poliCode}/${doctorCode}`
       const token       = `{!! env('X_TOKEN') !!}`
 
       return $.ajax({
@@ -80,7 +83,8 @@
         var term = $(this).val()
         if (term.length >= 1) {
           $.ajax({
-            url: `{!! env('API_URL') !!}patient/` + term,
+            url: `/proxy/patient/` + term,
+            // url: `{!! env('API_URL') !!}patient/` + term,
             type: 'GET', 
             dataType: 'json',
             beforeSend: function (xhr) {
